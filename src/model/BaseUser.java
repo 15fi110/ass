@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLException;
+
 import utility.UserConst;
 
 public class BaseUser {
@@ -17,8 +19,14 @@ public class BaseUser {
 	public int getId(){
 		return id;
 	}
+	public void setUserID(String userID){
+		this.userID = userID;
+	}
+	public void setPassword(String password){
+		this.password = password;
+	}
 
-	public static boolean login(String userID, String password){
+	public boolean login(){
 		boolean result = false;
 		try{
 			if(userID.indexOf(UserConst.TEACHER_ID) != -1){
@@ -31,13 +39,14 @@ public class BaseUser {
 				StudentDAO studentDAO = new StudentDAO();
 				result = studentDAO.isExist(userID, password);
 			}
-		}catch(Exception e){
-
+		}catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public static BaseUser getUserByUserID(String userID){
+	//staticメソッドにしたほうがインスタンスが無駄に作成されないが役割分担を明確にするためにインスタンスメソッドにしている
+	public BaseUser getUserByUserID(String userID){
 		BaseUser user = null;
 		if(userID.indexOf(UserConst.TEACHER_ID) != -1){
 
