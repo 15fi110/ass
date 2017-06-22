@@ -1,16 +1,21 @@
 package model;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.Date;
+
+import model.BaseUser.UserType;
 
 public class BoardCommentDAO extends BaseDAO {
-	
+
 	private PreparedStatement prepStmt_find;
 	private PreparedStatement prepStmt_create;
-	
+
     String strPrepSQL_find = "SELECT * FROM address";
     String strPrepSQL_create = "SELECT * FROM address";
-    
-	public static List<BoardComment> findByLessonId(Type type, int lessonId, int page, boolean canShowTeacher){
+
+	public ArrayList<BoardComment> findByLessonId(UserType type, int lessonId, int page, boolean canShowTeacher){
 		ArrayList<BoardComment> commentList = new ArrayList<BoardComment>();
 		try
 		{
@@ -22,14 +27,14 @@ public class BoardCommentDAO extends BaseDAO {
 			resultSet = prepStmt_find.executeQuery();
 
 			while (resultSet.next()) {
-				BoardCommnet comment = new BoardComment();
-				comment.id = resultSet.getInt("id");
-				comment.date = resultSet.getDate("date");
-				comment.year = resultSet.getInt("year");
-				comment.content = resultSet.getString("content");
-				comment.user = resultSet.getInt("user");
-				comment.canShowTeacher = resultSet.getBoolean("canShowTeacher");
-				commentList.Add(comment);
+				int id = resultSet.getInt("id");
+				Date date = resultSet.getDate("date");
+				int year = resultSet.getInt("year");
+				String content = resultSet.getString("content");
+				String userID = resultSet.getString("userID");
+				BaseUser user = BaseUser.getUserByUserID(userID);
+				BoardComment comment = new BoardComment(id, date, year,content, user, canShowTeacher);
+				commentList.add(comment);
 			}
 
 			resultSet.close();
@@ -40,5 +45,6 @@ public class BoardCommentDAO extends BaseDAO {
 		{
 			e.printStackTrace();
 		}
+		return commentList;
 	}
 }

@@ -3,9 +3,7 @@ package model;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 
 public class BaseDAO {
@@ -14,10 +12,10 @@ public class BaseDAO {
 	protected ResultSet resultSet;
 
 	protected Properties props;
-	
-	
+
+
 	protected void setup(){
-		pros = getProperties("db.properties");
+		props = getProperties("db.properties");
 		driverClassName = props.getProperty("driverClassName");
 		url = props.getProperty("url")+props.getProperty("dbname");
 		user = props.getProperty("user");

@@ -1,60 +1,70 @@
 package model;
-import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class TeacherDAO {
-	final private static String dbname = "tutorial";   // データベース名
-	final private static String user = "wspuser";      // tutorialにアクセスできるユーザ
-	final private static String password = "hogehoge"; // wspuserのパスワード
-	final private static String driverClassName = "org.postgresql.Driver";
-	final private static String url = "jdbc:postgresql://localhost/" + dbname;
+import model.BaseUser.UserType;
 
-	public static Teacher getTeacherById(int id) throws SQLException {
-		// memberがDBにあるかどうかを調べる
-		boolean result = false;
-		Connection connection;
-		String sql = "select * from member where name=? and pass=?";
+public class TeacherDAO extends BaseDAO {
+	private PreparedStatement prepStmt;
 
-		try {
+    String strPrepSQL_find = "SELECT * FROM teacher WHERE userid = ?";
+    String strPrepSQL_isExist = "SELECT * FROM teacher WHERE userid = ?, password = ?";
+
+
+	public Teacher getTeacherByUserID(String userID) throws SQLException {
+		Teacher teacher = null;
+		try
+		{
+			setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			prepStmt = connection.prepareStatement(strPrepSQL_find);
+			prepStmt.setString(0, userID);
 
-			pstmt.setString(1, );
+			resultSet = prepStmt.executeQuery();
 
-			ResultSet resultSet = pstmt.executeQuery();
-			if (resultSet.next()) result = true;
+			if (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				String mail = resultSet.getString("mail");
+				ArrayList<Lesson> lessonList = null;
+				teacher = new Teacher(id, password, mail, UserType.TEACHER, userID, lessonList);
+			}
 
 			resultSet.close();
+			prepStmt.close();
 			connection.close();
-		} catch (Exception e) {
+		}catch(
+		Exception e)
+		{
 			e.printStackTrace();
 		}
-		return result;
+		return teacher;
 	}
 
-	public static Teacher getTeacherById(int id) throws SQLException {
+	public boolean isExist(String userID, String password) throws SQLException {
 		// memberがDBにあるかどうかを調べる
 		boolean result = false;
-		Connection connection;
-		String sql = "select * from member where name=? and pass=?";
-
-		try {
+		try
+		{
+			setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			prepStmt = connection.prepareStatement(strPrepSQL_isExist);
 
-			pstmt.setString(1, );
+			resultSet = prepStmt.executeQuery();
 
-			ResultSet resultSet = pstmt.executeQuery();
-			if (resultSet.next()) result = true;
-
+			if (resultSet.next()) {
+				result = true;
+			}
 			resultSet.close();
+			prepStmt.close();
 			connection.close();
-		} catch (Exception e) {
+		}catch(
+		Exception e)
+		{
 			e.printStackTrace();
 		}
 		return result;
