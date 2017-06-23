@@ -7,21 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import model.BaseUser;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class RequestBoardCommentController
  */
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/RequestBoardCommentController")
+public class RequestBoardCommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public RequestBoardCommentController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,26 +36,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		BaseUser user = new BaseUser();
-
-		user.setUserID(request.getParameter("userID"));
-		user.setPassword(request.getParameter("password"));
-
-		boolean result = false;
-		result = user.login();
-
-
-		HttpSession session = request.getSession();
-		session.setAttribute("login", result);
-		if (result) {
-			// ログインに成功している場合はmember.jspへ
-//			session.setAttribute("user", member);
-			getServletContext().getRequestDispatcher("/member.jsp").forward(request, response);
-		} else {
-			// ログインに失敗している場合はlogin.jspへ
-			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-		}
+		doGet(request, response);
 	}
 
 }
