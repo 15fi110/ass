@@ -27,10 +27,14 @@ public class TeacherDAO extends BaseDAO {
 			resultSet = prepStmt.executeQuery();
 
 			if (resultSet.next()) {
-				int id = resultSet.getInt("id");
-				String mail = resultSet.getString("mail");
+				teacher = new Teacher();
+				teacher.setId(resultSet.getInt("id"));
+				teacher.setPassword(password);
+				teacher.setMail(resultSet.getString("mail"));
+				teacher.setType(UserType.TEACHER);
+				teacher.setUserID(userID);
 				ArrayList<Lesson> lessonList = null;
-				teacher = new Teacher(id, password, mail, UserType.TEACHER, userID, lessonList);
+				teacher.setLessonList(lessonList);
 			}
 
 			resultSet.close();
