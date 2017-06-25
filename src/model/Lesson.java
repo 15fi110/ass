@@ -7,15 +7,12 @@ public class Lesson {
 	private String name;
 	private Teacher teacher;
 	private ArrayList<Assessment> assessmentList;	
-	private ArrayList<AssessmentComment> assessmentComment;
+	private ArrayList<AssessmentComment> assessmentCommentList;
 	private ArrayList<BoardComment> boardCommentList;
 	private boolean isShowing;
 	private String description;
 	private int grade;
 	
-	public Lesson(){
-		
-	}
 	
 	public boolean changeShowing(){
 		return isShowing;
@@ -69,12 +66,12 @@ public class Lesson {
 		this.assessmentList = assessmentList;
 	}
 
-	public ArrayList<AssessmentComment> getAssessmentComment() {
-		return assessmentComment;
+	public ArrayList<AssessmentComment> getAssessmentCommentList() {
+		return assessmentCommentList;
 	}
 
-	public void setAssessmentComment(ArrayList<AssessmentComment> assessmentComment) {
-		this.assessmentComment = assessmentComment;
+	public void setAssessmentCommentList(ArrayList<AssessmentComment> assessmentCommentList) {
+		this.assessmentCommentList = assessmentCommentList;
 	}
 
 	public ArrayList<BoardComment> getBoardCommentList() {
