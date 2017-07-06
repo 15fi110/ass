@@ -15,7 +15,8 @@
 	<br>
 	<input type="password" name="password" size="30" maxlength="20">
 	<br>
-	<%-- IDかパスワードが不正です --%>>
+	<%-- IDかパスワードが不正です --%>
+	>
 	<br>
 	<input type="submit" value="ログイン">
 </body>

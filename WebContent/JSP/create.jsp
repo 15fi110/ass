@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="text" name="subjectName" size ="30" placeholder="こ↑こ↓に入力">
+	<input type="text" name="subjectName" size="30" placeholder="こ↑こ↓に入力">
 	<br>
-	<textarea id="subjectOutline" name="subjectOutline" rows="50" cols="20" maxlength="1000" placeholder="こ↑こ↓に入力"></textarea>
+	<textarea id="subjectOutline" name="subjectOutline" rows="50" cols="20"
+		maxlength="1000" placeholder="こ↑こ↓に入力"></textarea>
 	<br>
 	<input type="submit" value="確定">
 	<br>

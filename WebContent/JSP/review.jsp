@@ -9,6 +9,6 @@
 <body>
 	<input type="button" value="個別ページへ">
 	<input type="button" value="授業一覧へ">
-	<textarea id="comment" name="comment"readonly>評価</textarea>
+	<textarea id="comment" name="comment" readonly>評価</textarea>
 </body>
 </html>

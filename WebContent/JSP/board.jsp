@@ -14,7 +14,8 @@
 	<br>
 	<input type="checkbox">教員の閲覧を許可する
 	<br>
-	<textarea id="comment" name="comment" rows="4" cols="40" maxlength="140" placeholder="こ↑こ↓に入力"></textarea>
+	<textarea id="comment" name="comment" rows="4" cols="40"
+		maxlength="140" placeholder="こ↑こ↓に入力"></textarea>
 	<br>
 	<input type="submit" value="投稿">
 </body>
