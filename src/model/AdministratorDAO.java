@@ -26,9 +26,11 @@ public class AdministratorDAO extends BaseDAO {
 			resultSet = prepStmt.executeQuery();
 
 			if (resultSet.next()) {
-				int id = resultSet.getInt("id");
-				String mail = resultSet.getString("mail");
-				administrator = new Administrator(id, password, mail, UserType.ADMINISTRATOR, userID);
+				administrator = new Administrator();
+				administrator.setId(resultSet.getInt("id"));
+				administrator.setMail(resultSet.getString("mail"));
+				administrator.setType(UserType.ADMINISTRATOR);
+				administrator.setUserID(userID);
 			}
 
 			resultSet.close();

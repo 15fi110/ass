@@ -27,10 +27,14 @@ public class StudentDAO extends BaseDAO {
 			resultSet = prepStmt.executeQuery();
 
 			if (resultSet.next()) {
-				int id = resultSet.getInt("id");
-				String mail = resultSet.getString("mail");
+				student = new Student();
+				student.setId(resultSet.getInt("id"));
+				student.setPassword(resultSet.getString("password"));
+				student.setMail(resultSet.getString("mail"));
 				ArrayList<Lesson> lessonList = null;
-				student = new Student(id, password, mail, UserType.STUDENT, userID, lessonList);
+				student.setType(UserType.STUDENT);
+				student.setLessonList(lessonList);
+				student.setUserID(userID);
 			}
 
 			resultSet.close();

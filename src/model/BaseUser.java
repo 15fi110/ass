@@ -18,14 +18,41 @@ public class BaseUser {
 	public int getId() {
 		return id;
 	}
+<<<<<<< HEAD
 
 	public void setUserID(String userID) {
 		this.userID = userID;
+=======
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	public UserType getType() {
+		return type;
+	}
+	public void setType(UserType type) {
+		this.type = type;
+	}
+	public String getPassword() {
+		return password;
+>>>>>>> branch 'master' of https://github.com/15fi110/ass.git
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID){
+		this.userID = userID;
+	}
+
 
 	public boolean login() {
 		boolean result = false;

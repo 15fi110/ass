@@ -5,16 +5,11 @@ import java.util.ArrayList;
 public class Teacher extends BaseUser {
 	private ArrayList<Lesson> lessonList;
 
-	public Teacher(int id, String password, String mail, UserType userType, String userId, ArrayList<Lesson> lessonList){
-		this.id = id;
-		this.password = password;
-		this.mail = mail;
-		this.type = userType;
-		this.userID = userId;
-		this.lessonList = lessonList;
+	public ArrayList<Lesson> getLessonList() {
+		return lessonList;
 	}
 
-	public ArrayList<Lesson> getLessonList(){
-		return lessonList;
+	public void setLessonList(ArrayList<Lesson> lessonList) {
+		this.lessonList = lessonList;
 	}
 }
