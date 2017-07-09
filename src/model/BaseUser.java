@@ -18,11 +18,9 @@ public class BaseUser {
 	public int getId() {
 		return id;
 	}
-<<<<<<< HEAD
-
 	public void setUserID(String userID) {
 		this.userID = userID;
-=======
+	}
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -40,7 +38,6 @@ public class BaseUser {
 	}
 	public String getPassword() {
 		return password;
->>>>>>> branch 'master' of https://github.com/15fi110/ass.git
 	}
 
 	public void setPassword(String password) {
@@ -49,24 +46,20 @@ public class BaseUser {
 	public String getUserID() {
 		return userID;
 	}
-	public void setUserID(String userID){
-		this.userID = userID;
-	}
 
-
-	public boolean login() {
-		boolean result = false;
+	public BaseUser login() {
+		BaseUser result = null;
 		try {
+			UserDAO userDAO = new UserDAO();
+			UserType userType;
 			if (userID.indexOf(UserConst.TEACHER_ID) != -1) {
-				TeacherDAO teacherDAO = new TeacherDAO();
-				result = teacherDAO.isExist(userID, password);
+				userType = UserType.TEACHER;
 			} else if (userID.indexOf(UserConst.ADMINISTRATOR_ID) != -1) {
-				AdministratorDAO administratorDAO = new AdministratorDAO();
-				result = administratorDAO.isExist(userID, password);
+				userType = UserType.ADMINISTRATOR;
 			} else {
-				StudentDAO studentDAO = new StudentDAO();
-				result = studentDAO.isExist(userID, password);
+				userType = UserType.STUDENT;
 			}
+			result = userDAO.login(userID, password, userType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

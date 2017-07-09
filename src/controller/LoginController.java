@@ -14,7 +14,7 @@ import model.BaseUser;
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet("/LoginController")
+@WebServlet({"/LoginController", "/Login"})
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,16 +45,15 @@ public class LoginController extends HttpServlet {
 		user.setUserID(request.getParameter("userID"));
 		user.setPassword(request.getParameter("password"));
 
-		boolean result = false;
+		BaseUser result = null;
 		result = user.login();
 
-
 		HttpSession session = request.getSession();
-		session.setAttribute("login", result);
-		if (result) {
+		session.setAttribute("user", result);
+		if (result != null) {
 			// ログインに成功している場合はmember.jspへ
-//			session.setAttribute("user", member);
-			getServletContext().getRequestDispatcher("/member.jsp").forward(request, response);
+			session.setAttribute("user", result);
+			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
 			// ログインに失敗している場合はlogin.jspへ
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
