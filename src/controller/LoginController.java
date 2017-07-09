@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.BaseUser;
+import model.BaseUser.UserType;
 
 /**
  * Servlet implementation class LoginController
@@ -53,6 +54,10 @@ public class LoginController extends HttpServlet {
 		if (result != null) {
 			// ログインに成功している場合はmember.jspへ
 			session.setAttribute("user", result);
+			if(user.getType() == UserType.ADMINISTRATOR){
+				getServletContext().getRequestDispatcher("/adminindex.jsp").forward(request, response);
+				return;
+			}
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
 			// ログインに失敗している場合はlogin.jspへ
