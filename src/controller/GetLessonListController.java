@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.BaseUser;
+import model.Lesson;
 
 /**
  * Servlet implementation class GetLessonListController
@@ -39,9 +42,11 @@ public class GetLessonListController extends HttpServlet {
 		}
 		BaseUser user = (BaseUser)session.getAttribute("user");
 
-		result = user.login();
+		ArrayList<Lesson> resultList = Lesson.getLessonListByUserId(user.getId());
 
-		session.setAttribute("login", result);
+		ServletContext ctx = super.getServletContext();
+
+		ctx.setAttribute("lessonList", resultList);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

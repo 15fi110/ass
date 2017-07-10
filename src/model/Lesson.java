@@ -6,32 +6,32 @@ public class Lesson {
 	private int id;
 	private String name;
 	private Teacher teacher;
-	private ArrayList<Assessment> assessmentList;	
+	private ArrayList<Assessment> assessmentList;
 	private ArrayList<AssessmentComment> assessmentCommentList;
 	private ArrayList<BoardComment> boardCommentList;
 	private boolean isShowing;
 	private String description;
 	private int grade;
-	
-	
+
+
 	public boolean changeShowing(){
 		return isShowing;
 	}
-	
+
 	public void delete(){
-		
+
 	}
-	
+
 	public void setDetail(){
-		
+
 	}
-	
+
 	public void setBoardComment(){
-		
+
 	}
-	
+
 	public void create(int teacherId, String name, String description, int grade){
-		
+
 	}
 
 	public int getId() {
@@ -104,5 +104,10 @@ public class Lesson {
 
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+
+	public static ArrayList<Lesson> getLessonListByUserId(int userId){
+		LessonDAO lessonDAO = new LessonDAO();
+		return lessonDAO.findByUserId(userId);
 	}
 }

@@ -8,21 +8,25 @@ import model.BaseUser.UserType;
 
 public class LessonDAO extends BaseDAO{
 
+	private PreparedStatement prepStmt;
+	private String strPrepSQL_findList = "SELECT * FROM lesson WHERE id IN (SELECT lessonid FROM assessment WHERE userid = ?) ";
+	private String strPrepSQL_find = "SELECT * FROM lesson WHERE id = ? ";
+	private String strPrepSQL_delete = "DELETE FROM lesson WHERE id = ? ";
+	private String strPrepSQL_update = "UPDATE lesson SET isShowing = ? WHERE id = ?";
+
     public Lesson findById(int id){
 		Lesson lesson = new Lesson();
-		PreparedStatement prepStmt_find;
-    	String strPrepSQL_find = "SELECT * FROM lesson WHERE id = ? ";
 
     	try
 		{
 			setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_find = connection.prepareStatement(strPrepSQL_find);
+			prepStmt = connection.prepareStatement(strPrepSQL_find);
 
-			prepStmt_find.setString(1, String.valueOf(id));
+			prepStmt.setString(1, String.valueOf(id));
 
-			resultSet = prepStmt_find.executeQuery();
+			resultSet = prepStmt.executeQuery();
 
 			if (resultSet.next()) {
 				String name = resultSet.getString("name");
@@ -48,7 +52,7 @@ public class LessonDAO extends BaseDAO{
 				}
 
 			resultSet.close();
-			prepStmt_find.close();
+			prepStmt.close();
 			connection.close();
 		}catch(
 		Exception e)
@@ -59,40 +63,34 @@ public class LessonDAO extends BaseDAO{
     }
 
     public void deleteById(Lesson lesson){
-    	PreparedStatement prepStmt_delete;
-    	String strPrepSQL_delete = "DELETE FROM lesson WHERE id = " + lesson.getId();
-
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_delete = connection.prepareStatement(strPrepSQL_delete);
-			prepStmt_delete.executeUpdate();
+			prepStmt = connection.prepareStatement(strPrepSQL_delete);
+			prepStmt.setString(1, String.valueOf(lesson.getId()));
+			prepStmt.executeUpdate();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
     }
 
     public void update(Lesson lesson, boolean showing){
-    	PreparedStatement prepStmt_update;
-    	String strPrepSQL_update;
-    	if(showing){
-    		strPrepSQL_update = "UPDATE lesson SET isShowing = true WHERE id =" + lesson.getId();
-    	} else {
-    		strPrepSQL_update = "UPDATE lesson SET isShowing = false WHERE id =" + lesson.getId();
-    	}
-
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_update = connection.prepareStatement(strPrepSQL_update);
-			prepStmt_update.executeUpdate();
+			prepStmt = connection.prepareStatement(strPrepSQL_update);
+			prepStmt.setString(1, String.valueOf(showing));
+	    	prepStmt.setString(2, String.valueOf(lesson.getId()));
+			prepStmt.executeUpdate();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
     }
 
+
+    //TODO::修正
     public void create(String name,  Teacher teacher,  String description, int grade){
     	PreparedStatement prepStmt_show, prepStmt_create;
     	String strPrepSQL_show = "SELECT * FROM lesson";
@@ -116,5 +114,55 @@ public class LessonDAO extends BaseDAO{
     	}catch(Exception e){
 			e.printStackTrace();
     	}
+    }
+
+    public ArrayList<Lesson> findByUserId(int id){
+		ArrayList<Lesson> resultList = new ArrayList<Lesson>();
+
+    	try
+		{
+			setup();
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt = connection.prepareStatement(strPrepSQL_findList);
+
+			prepStmt.setInt(1, id);
+
+			resultSet = prepStmt.executeQuery();
+
+			while (resultSet.next()) {
+				Lesson lesson = new Lesson();
+				String name = resultSet.getString("name");
+				int lessonId = resultSet.getInt("id");
+				UserDAO userDAO = new UserDAO();
+				Teacher teacher = (Teacher)userDAO.getUserById(id, UserType.TEACHER);
+//				ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();                         //
+//				ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();   //未完成
+//				ArrayList<BoardComment> boardCommentList = new ArrayList<BoardComment>();                   //
+				boolean isShowing = resultSet.getBoolean("isshowing");
+				String description = resultSet.getString("description");
+				int grade = resultSet.getInt("grade");
+
+				lesson.setId(lessonId);
+				lesson.setName(name);
+				lesson.setTeacher(teacher);
+				lesson.setAssessmentList(null);
+				lesson.setAssessmentCommentList(null);
+				lesson.setBoardCommentList(null);
+				lesson.setShowing(isShowing);
+				lesson.setDescription(description);
+				lesson.setGrade(grade);
+				resultList.add(lesson);
+				}
+
+			resultSet.close();
+			resultSet.close();
+			connection.close();
+		}catch(
+		Exception e)
+		{
+			e.printStackTrace();
+		}
+    	return resultList;
     }
 }
