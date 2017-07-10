@@ -1,3 +1,4 @@
+<%@page import="model.Lesson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,7 +16,7 @@
 		return;
 	}
 
-    out.print("<b>" + lesson.getName() + "</b>" + 
+    out.print("<b>" + lesson.getName() + "</b>" +
 	"<br> " + lesson.getDescription());
 
     out.print("<br>"  +
@@ -29,9 +30,9 @@
     	"<input type=\"submit\" value=\"掲示板へ\">" +
     	"</form>" +
     	"<br>");
-    	
+
 %>
-	
+
 	<!-- <br>
 	<input type="button" value="詳細へ">
 	<br>

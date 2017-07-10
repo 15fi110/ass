@@ -49,14 +49,18 @@ public class GetLessonController extends HttpServlet {
 		}
 		BaseUser user = (BaseUser)session.getAttribute("user");
 
-		int lessonId = Integer.parseInt(request.getParameter("userID"));
+
+
+		System.out.println(request.getParameterMap());
+
+		int lessonId = Integer.parseInt(request.getParameter("id"));
 
 		Lesson result = Lesson.getLessonById(lessonId);
 
 		ServletContext ctx = super.getServletContext();
 
 		ctx.setAttribute("lesson", result);
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/individual.jsp").forward(request, response);
 	}
 
 }

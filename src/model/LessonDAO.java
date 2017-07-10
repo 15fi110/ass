@@ -15,7 +15,7 @@ public class LessonDAO extends BaseDAO{
 	private String strPrepSQL_update = "UPDATE lesson SET isShowing = ? WHERE id = ?";
 
     public Lesson findById(int id){
-		Lesson lesson = new Lesson();
+		Lesson lesson = null;
 
     	try
 		{
@@ -24,28 +24,29 @@ public class LessonDAO extends BaseDAO{
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt = connection.prepareStatement(strPrepSQL_find);
 
-			prepStmt.setString(1, String.valueOf(id));
+			prepStmt.setInt(1, id);
 
 			resultSet = prepStmt.executeQuery();
 
 			if (resultSet.next()) {
+				lesson = new Lesson();
 				String name = resultSet.getString("name");
-				String userid = resultSet.getString("userid");
+				int lessonId = resultSet.getInt("id");
 				UserDAO userDAO = new UserDAO();
-				Teacher teacher = (Teacher)userDAO.getUserByUserID(userid, UserType.TEACHER);
-				ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();                         //
-				ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();   //未完成
-				ArrayList<BoardComment> boardCommentList = new ArrayList<BoardComment>();                   //
-				boolean isShowing = resultSet.getBoolean("isShowing");
+				Teacher teacher = (Teacher)userDAO.getUserById(id, UserType.TEACHER);
+//				ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();                         //
+//				ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();   //未完成
+//				ArrayList<BoardComment> boardCommentList = new ArrayList<BoardComment>();                   //
+				boolean isShowing = resultSet.getBoolean("isshowing");
 				String description = resultSet.getString("description");
 				int grade = resultSet.getInt("grade");
 
-				lesson.setId(id);
+				lesson.setId(lessonId);
 				lesson.setName(name);
 				lesson.setTeacher(teacher);
-				lesson.setAssessmentList(assessmentList);
-				lesson.setAssessmentCommentList(assessmentCommentList);
-				lesson.setBoardCommentList(boardCommentList);
+				lesson.setAssessmentList(null);
+				lesson.setAssessmentCommentList(null);
+				lesson.setBoardCommentList(null);
 				lesson.setShowing(isShowing);
 				lesson.setDescription(description);
 				lesson.setGrade(grade);

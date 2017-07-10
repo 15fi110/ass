@@ -25,7 +25,7 @@
     for(int i = 0; i < lessonList.size(); i++){
     	out.print("<b>" + lessonList.get(i).getName() + "</b>" +
     	"<form action=\"Lesson\" method=\"post\">" +
-    	"<name=\"id\" value=" + lessonList.get(i).getId() + ">" +
+    	"<input type=\"hidden\" name=\"id\" value=" + lessonList.get(i).getId() + ">" +
     	"<input type=\"submit\" value=\"個別ページへ\">" +
     	"</form>" +
     	"<br>");
