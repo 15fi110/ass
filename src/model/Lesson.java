@@ -110,4 +110,9 @@ public class Lesson {
 		LessonDAO lessonDAO = new LessonDAO();
 		return lessonDAO.findByUserId(userId);
 	}
+
+	public static Lesson getLessonById(int id){
+		LessonDAO lessonDAO = new LessonDAO();
+		return lessonDAO.findById(id);
+	}
 }
