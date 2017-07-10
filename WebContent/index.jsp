@@ -26,7 +26,7 @@
     	out.print("<b>" + lessonList.get(i).getName() + "</b>" +
     	"<form action=\"Lesson\" method=\"post\">" +
     	"<name=\"id\" value=" + lessonList.get(i).getId() + ">" +
-    	"<input type=\"button\" value=\"個別ページへ\">" +
+    	"<input type=\"submit\" value=\"個別ページへ\">" +
     	"</form>" +
     	"<br>");
     }
@@ -36,7 +36,7 @@
 	<b>授業名</b>
 	<form action="Lesson" method="post">
 	<name="id" value=>
-	<input type="button" value="個別ページへ">
+	<input type=submit value="個別ページへ">
 	</form>
 	<br>
 </body>
