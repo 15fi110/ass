@@ -33,11 +33,11 @@
 
 %>
 
-	<b>授業名</b>
+	<!-- <b>授業名</b>
 	<form action="Lesson" method="post">
 	<name="id" value=>
 	<input type=submit value="個別ページへ">
 	</form>
-	<br>
+	<br> -->
 </body>
 </html>

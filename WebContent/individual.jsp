@@ -7,12 +7,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<b>授業名</b>
-	<br> 授業詳細
-	<br>
+	<%
+    ServletContext ctx = getServletContext();
+	Lesson lesson = (Lesson) ctx.getAttribute("lesson");
+
+	if(lesson == null){
+		return;
+	}
+
+    out.print("<b>" + lesson.getName() + "</b>" + 
+	"<br> " + lesson.getDescription());
+
+    out.print("<br>"  +
+    	"<form action=\"Detail\" method=\"post\">" +
+    	"<name=\"id\" value=" + lesson.getId() + ">" +
+    	"<input type=\"submit\" value=\"詳細へ\">" +
+    	"</form>" +
+    	"<br>" +
+		"<form action=\"Board\" method=\"post\">" +
+    	"<name=\"id\" value=" + lesson.getId() + ">" +
+    	"<input type=\"submit\" value=\"掲示板へ\">" +
+    	"</form>" +
+    	"<br>");
+    	
+%>
+	
+	<!-- <br>
 	<input type="button" value="詳細へ">
 	<br>
 	<input type="button" value="掲示板へ">
-	<br>
+	<br> -->
 </body>
 </html>
