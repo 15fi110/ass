@@ -38,5 +38,7 @@
 	<br>
 	<input type="button" value="掲示板へ">
 	<br> -->
+	<p>a</p>
+	<img src='<%=request.getContextPath()%>/chart.png'>
 </body>
 </html>

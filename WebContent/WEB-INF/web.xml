@@ -11,10 +11,10 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>ChartServlet</servlet-name>
-    <servlet-class>to.msn.wings.javatips.ChartServlet</servlet-class>
+    <servlet-class>controller.ChartServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ChartServlet</servlet-name>
-    <url-pattern>/chart.jpg</url-pattern>
+    <url-pattern>/chart.png</url-pattern>
   </servlet-mapping>
 </web-app>
