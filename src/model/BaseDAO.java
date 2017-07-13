@@ -7,19 +7,25 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class BaseDAO {
-	protected String driverClassName, url, user, password;
+//	protected String driverClassName, url, user, password;
 	protected Connection connection;
 	protected ResultSet resultSet;
 
 	protected Properties props;
 
+	final protected static String dbname = "ass";   // データベース名
+	final protected static String user = "wspuser";      // tutorialにアクセスできるユーザ
+	final protected static String password = "hogehoge"; // wspuserのパスワード
+	final protected static String driverClassName = "org.postgresql.Driver";
+	final protected static String url = "jdbc:postgresql://localhost/" + dbname;
+
 
 	protected void setup(){
-		props = getProperties("db.properties");
-		driverClassName = props.getProperty("driverClassName");
-		url = props.getProperty("url")+props.getProperty("dbname");
-		user = props.getProperty("user");
-		password = props.getProperty("password");
+//		props = getProperties("db.properties");
+//		driverClassName = props.getProperty("driverClassName");
+//		url = props.getProperty("url")+props.getProperty("dbname");
+//		user = props.getProperty("user");
+//		password = props.getProperty("password");
 
 	}
 

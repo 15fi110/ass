@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import model.BaseUser;
 import model.Lesson;
 
 /**
- * Servlet implementation class GetLessonListController
+ * Servlet implementation class GetLessonController
  */
-@WebServlet("/GetLessonListController")
-public class GetLessonListController extends HttpServlet {
+@WebServlet({"/GetLessonController", "/Lesson"} )
+public class GetLessonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetLessonListController() {
+    public GetLessonController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +33,6 @@ public class GetLessonListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-
-		if(session.getAttribute("user") == null){
-			// ログインしていない場合はlogin.jspへ
-			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-		}
-		BaseUser user = (BaseUser)session.getAttribute("user");
-
-		ArrayList<Lesson> resultList = Lesson.getLessonListByUserId(user.getId());
-
-		ServletContext ctx = super.getServletContext();
-
-		ctx.setAttribute("lessonList", resultList);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -55,7 +41,26 @@ public class GetLessonListController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("user") == null){
+			// ログインしていない場合はlogin.jspへ
+			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		BaseUser user = (BaseUser)session.getAttribute("user");
+
+
+
+		System.out.println(request.getParameterMap());
+
+		int lessonId = Integer.parseInt(request.getParameter("id"));
+
+		Lesson result = Lesson.getLessonById(lessonId);
+
+		ServletContext ctx = super.getServletContext();
+
+		ctx.setAttribute("lesson", result);
+		getServletContext().getRequestDispatcher("/individual.jsp").forward(request, response);
 	}
 
 }
