@@ -7,6 +7,7 @@ public class Assessment {
 	private Date date;
 	private int year;
 	private Student student;
+	private int lessonId;
 
 	public void register(){
 		
@@ -31,6 +32,12 @@ public class Assessment {
 	}
 	public void setYear(int year) {
 		this.year = year;
+	}
+	public int getLessonId() {
+		return lessonId;
+	}
+	public void setLessonId(int lessonId) {
+		this.lessonId = lessonId;
 	}
 	public Student getStudent() {
 		return student;
