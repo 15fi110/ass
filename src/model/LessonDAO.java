@@ -24,9 +24,9 @@ public class LessonDAO extends BaseDAO{
 				String name = resultSet.getString("name");
 				String teacherId = resultSet.getString("teacher");
 				Teacher teacher = new TeacherDAO().getTeacherByUserID(teacherId);
-				ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();                         //
-				ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();   //未完成
-				ArrayList<BoardComment> boardCommentList = new ArrayList<BoardComment>();                   //
+				ArrayList<Assessment> assessmentList = new AssessmentDAO().findByLessonId(id);
+				ArrayList<AssessmentComment> assessmentCommentList = new AssessmentCommentDAO().findByLessonId(id);   //未完成
+				ArrayList<BoardComment> boardCommentList = new BoardCommentDAO().findByLessonId(id);                   //
 				boolean isShowing = resultSet.getBoolean("isShowing");
 				String description = resultSet.getString("description");
 				int grade = resultSet.getInt("grade");
@@ -40,8 +40,12 @@ public class LessonDAO extends BaseDAO{
 				lesson.setShowing(isShowing);
 				lesson.setDescription(description);
 				lesson.setGrade(grade);
+				} else {
+					resultSet.close();
+					prepStmt_find.close();
+					connection.close();
+					return null;
 				}
-
 			resultSet.close();
 			prepStmt_find.close();
 			connection.close();
@@ -63,6 +67,9 @@ public class LessonDAO extends BaseDAO{
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_delete = connection.prepareStatement(strPrepSQL_delete);
 			prepStmt_delete.executeUpdate();
+			
+			prepStmt_delete.close();
+			connection.close();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
@@ -83,31 +90,29 @@ public class LessonDAO extends BaseDAO{
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_update = connection.prepareStatement(strPrepSQL_update);
 			prepStmt_update.executeUpdate();
+			
+			prepStmt_update.close();
+			connection.close();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
     }
     
-    public void create(String name,  Teacher teacher,  String description, int grade){
-    	PreparedStatement prepStmt_show, prepStmt_create;
-    	String strPrepSQL_show = "SELECT * FROM lesson";
+    public void create(String name,  String description, int grade){
+    	PreparedStatement prepStmt_create;
     	String strPrepSQL_create = "";
-    	int count = 0;
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_show = connection.prepareStatement(strPrepSQL_show);
-			resultSet = prepStmt_show.executeQuery();
 			
-			while(resultSet.next()){
-				count++;
-			}
-			
-			strPrepSQL_create = "INSERT INTO lesson VALUES (" + count + "," + name + "," + teacher.getId() + "," + "true," + description + "," + grade + ")";//未完成
+			strPrepSQL_create = "INSERT INTO lesson VALUES (nextval('lesson_id_seq'), '" + name + "', " + "true, '" + description + "', " + grade + ")";
 			
 			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
+			
+			prepStmt_create.close();
+			connection.close();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
