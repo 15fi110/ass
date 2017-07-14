@@ -20,7 +20,7 @@ public class AssessmentDAO extends BaseDAO {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_find = connection.prepareStatement(strPrepSQL_find);
 
-			prepStmt_find.setString(1, String.valueOf(lessonId));
+			prepStmt_find.setInt(1, lessonId);
 
 			resultSet = prepStmt_find.executeQuery();
 
