@@ -15,7 +15,7 @@
 	<input type="submit" value="ログアウト">
 	</form>
 	<br>
-	<%-- 授業ボックステンプレ --%>
+	<%-- 授業ボックス --%>
 	<%
     ServletContext ctx = getServletContext();
 	ArrayList<Lesson> lessonList = (ArrayList<Lesson>) ctx.getAttribute("lessonList");
@@ -24,12 +24,13 @@
 		return;
 	}
     for(int i = 0; i < lessonList.size(); i++){
-    	out.print("<b>" + lessonList.get(i).getName() + "</b>" +
+    	out.print("<div>" + "<b>" + lessonList.get(i).getName() + "</b>" +
     	"<form action=\"Lesson\" method=\"post\">" +
     	"<input type=\"hidden\" name=\"id\" value=" + lessonList.get(i).getId() + ">" +
     	"<input type=\"submit\" value=\"個別ページへ\">" +
     	"</form>" +
-    	"<br>");
+    	"<br>" +
+    	"</div>");
     }
 
 %>
