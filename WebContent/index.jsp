@@ -7,8 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+	<b>授業一覧</b>
 	<form action="Logout" method="get">
 	<input type="submit" value="ログアウト">
 	</form>
@@ -21,7 +23,6 @@
 	if(lessonList == null){
 		return;
 	}
-
     for(int i = 0; i < lessonList.size(); i++){
     	out.print("<b>" + lessonList.get(i).getName() + "</b>" +
     	"<form action=\"Lesson\" method=\"post\">" +

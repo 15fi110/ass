@@ -1,0 +1,15 @@
+body{
+	background-color : #eeeeee;
+	font-family : Meiryo;
+}
+div {
+	background-color : #ffffff;
+	width : 300px;
+	text-align : center;
+	padding : 10px;
+	border : 1px solid #cccccc;
+	margin : auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

@@ -1,0 +1,14 @@
+body{
+	background-color : #eeeeee;
+	font-family : Meiryo;
+}
+div {
+	background-color : #ffffff;
+	width : 200px;
+	text-align : center;
+	padding : 10px;
+	border : 1px solid #cccccc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
