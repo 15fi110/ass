@@ -35,9 +35,9 @@ public class LessonDAO extends BaseDAO{
 				int lessonId = resultSet.getInt("id");
 				UserDAO userDAO = new UserDAO();
 				Teacher teacher = (Teacher)userDAO.getUserById(id, UserType.TEACHER);
-				ArrayList<Assessment> assessmentList = new AssessmentDAO().findByLessonId(id);
-				ArrayList<AssessmentComment> assessmentCommentList = new AssessmentCommentDAO().findByLessonId(id);   //未完成
-				ArrayList<BoardComment> boardCommentList = new BoardCommentDAO().findByLessonId(id);                 //
+//				ArrayList<Assessment> assessmentList = new AssessmentDAO().findByLessonId(id);
+//				ArrayList<AssessmentComment> assessmentCommentList = new AssessmentCommentDAO().findByLessonId(id);   //未完成
+//				ArrayList<BoardComment> boardCommentList = new BoardCommentDAO().findByLessonId(id);                 //
 				boolean isShowing = resultSet.getBoolean("isshowing");
 				String description = resultSet.getString("description");
 				int grade = resultSet.getInt("grade");
@@ -53,7 +53,7 @@ public class LessonDAO extends BaseDAO{
 				lesson.setGrade(grade);
 				} else {
 					resultSet.close();
-					prepStmt_find.close();
+					prepStmt.close();
 					connection.close();
 					return null;
 				}
@@ -100,7 +100,7 @@ public class LessonDAO extends BaseDAO{
 			e.printStackTrace();
     	}
     }
-    
+
     public void create(String name,  String description, int grade){
     	PreparedStatement prepStmt_create;
 
@@ -109,12 +109,12 @@ public class LessonDAO extends BaseDAO{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			
+
 			strPrepSQL_create = "INSERT INTO lesson VALUES (nextval('lesson_id_seq'), '" + name + "', " + "true, '" + description + "', " + grade + ")";
-			
+
 			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
-			
+
 			prepStmt_create.close();
 			connection.close();
     	}catch(Exception e){
@@ -125,6 +125,7 @@ public class LessonDAO extends BaseDAO{
     public ArrayList<Lesson> findByUserId(int id){
 		ArrayList<Lesson> resultList = new ArrayList<Lesson>();
 
+		System.out.println("ss");
     	try
 		{
 			setup();

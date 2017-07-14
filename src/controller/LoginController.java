@@ -66,6 +66,7 @@ public class LoginController extends HttpServlet {
 			ArrayList<Lesson> resultList = Lesson.getLessonListByUserId(result.getId());
 
 			ServletContext ctx = super.getServletContext();
+			System.out.println(resultList.size());
 			for(Lesson lesson : resultList){
 				System.out.println(lesson.getName());
 			}

@@ -1,5 +1,8 @@
 package controller;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -20,9 +23,20 @@ public class BoardChatController {
 	        ses.add(session);
 	    }
 
+	    @OnSet
+	    public void onSet(String text) {
+
+	    }
+
 	    @OnMessage
-	    public String onMessage(String text) {
-	        return "echo => " + text;
+	    public void onMessage(String text) {
+	    	for (Session ses : ses) {
+	            text += ses;
+	        }
+	    	for (Session ses : ses) {
+	            ses.getAsyncRemote().sendText(text);
+	        }
+	        //return "echo => " + text;
 	    }
 
 	    @OnClose
@@ -36,5 +50,12 @@ public class BoardChatController {
 	            ses.getAsyncRemote().sendText(msg);
 	        }
 	    }
+
+	    @Retention(RetentionPolicy.RUNTIME)
+	    @Target({ java.lang.annotation.ElementType.METHOD })
+	    public @interface OnSet {
+	    	long maxMessageSize() default -1L;
+	    }
+
 
 }

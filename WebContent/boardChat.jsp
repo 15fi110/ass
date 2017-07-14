@@ -25,7 +25,7 @@ BoardChatController = {};
                     $("#msgbox").innerHTML += "<div>" + msg + "</div>";
                 }
                 d.connect = function() {
-                    var ws = new WebSocket("ws://localhost:8080//ass/echo");
+                    var ws = new WebSocket("ws://150.95.151.171:8080/ass/echo");
                     ws.onmessage = function(event) {
                         printMessage("Server : " + event.data);
                     };
@@ -50,7 +50,7 @@ BoardChatController = {};
  <%= isPOST ? "Message was sent." : "" %>
         <form action="" method="post">
             <input type="text" name="msg">
-            <input type="submit" name="submit" value="Send">
+            <input type="submit" name="submit" value="Send" onclick="BoardChatController.sent();">
         </form>
 </body>
 </html>
