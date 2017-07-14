@@ -12,7 +12,7 @@
 		<form action="Login" method="post">
 			<b> 学籍番号</b>
 			<br>
-			<input type="text" name="userID" size="29"maxlength="7">
+			<input type="text" name="userID" size="30"maxlength="7">
 			<br>
 			<b> パスワード</b>
 			<br>
