@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -8,11 +9,10 @@ import model.BaseUser.UserType;
 
 public class AssessmentDAO extends BaseDAO {
 
-    public Lesson findById(int id){
-		Lesson lesson = new Lesson();
+    public ArrayList<Assessment> findByLessonId(int lessonId){
 		PreparedStatement prepStmt_find;
-    	String strPrepSQL_find = "SELECT * FROM lesson WHERE id = ? ";
-
+    	String strPrepSQL_find = "SELECT * FROM assessment WHERE lessonid = ? ";
+    	ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
     	try
 		{
 			setup();
@@ -20,33 +20,33 @@ public class AssessmentDAO extends BaseDAO {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_find = connection.prepareStatement(strPrepSQL_find);
 
-			prepStmt_find.setString(1, String.valueOf(id));
+			prepStmt_find.setString(1, String.valueOf(lessonId));
 
 			resultSet = prepStmt_find.executeQuery();
 
-			if (resultSet.next()) {
-				String name = resultSet.getString("name");
-				String userid = resultSet.getString("userid");
-				UserDAO userDAO = new UserDAO();
-				Teacher teacher = (Teacher)userDAO.getUserByUserID(userid, UserType.TEACHER);
-				ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();                         //
-				ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();   //未完成
-				ArrayList<BoardComment> boardCommentList = new ArrayList<BoardComment>();                   //
-				boolean isShowing = resultSet.getBoolean("isShowing");
-				String description = resultSet.getString("description");
-				int grade = resultSet.getInt("grade");
-
-				lesson.setId(id);
-				lesson.setName(name);
-				lesson.setTeacher(teacher);
-				lesson.setAssessmentList(assessmentList);
-				lesson.setAssessmentCommentList(assessmentCommentList);
-				lesson.setBoardCommentList(boardCommentList);
-				lesson.setShowing(isShowing);
-				lesson.setDescription(description);
-				lesson.setGrade(grade);
+			while (resultSet.next()) {
+				Assessment assessment = new Assessment();
+				assessment.setId(resultSet.getInt("id"));
+				assessment.setDate(resultSet.getDate("date"));
+				assessment.setYear(resultSet.getInt("year"));
+				Student student = (Student)new UserDAO().getUserByUserID(resultSet.getString("userid"), UserType.STUDENT);
+				assessment.setStudent(student);
+				assessment.setLessonId(resultSet.getInt("lessonid"));
+				assessment.setItem1(resultSet.getInt("item1"));
+				assessment.setItem2(resultSet.getInt("item2"));
+				assessment.setItem3(resultSet.getInt("item3"));
+				assessment.setItem4(resultSet.getInt("item4"));
+				assessment.setItem5(resultSet.getInt("item5"));
+				assessment.setItem6(resultSet.getInt("item6"));
+				assessment.setItem7(resultSet.getInt("item7"));
+				assessment.setItem8(resultSet.getInt("item8"));
+				assessment.setItem9(resultSet.getInt("item9"));
+				assessment.setItem10(resultSet.getInt("item10"));
+				assessment.setItem11(resultSet.getInt("item11"));
+				assessment.setItem12(resultSet.getInt("item12"));
+				assessment.setItem13(resultSet.getInt("item13"));
+				assessmentList.add(assessment);
 				}
-
 			resultSet.close();
 			prepStmt_find.close();
 			connection.close();
@@ -55,64 +55,59 @@ public class AssessmentDAO extends BaseDAO {
 		{
 			e.printStackTrace();
 		}
-    	return lesson;
+    	return assessmentList;
     }
 
-    public void deleteById(Lesson lesson){
+    public void deleteById(Assessment assessment){
     	PreparedStatement prepStmt_delete;
-    	String strPrepSQL_delete = "DELETE FROM lesson WHERE id = " + lesson.getId();
+    	String strPrepSQL_delete = "DELETE FROM assessment WHERE id = ? ";
 
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_delete = connection.prepareStatement(strPrepSQL_delete);
+			prepStmt_delete.setInt(1, assessment.getId());
 			prepStmt_delete.executeUpdate();
+			
+			prepStmt_delete.close();
+			connection.close();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
     }
 
-    public void update(Lesson lesson, boolean showing){
-    	PreparedStatement prepStmt_update;
-    	String strPrepSQL_update;
-    	if(showing){
-    		strPrepSQL_update = "UPDATE lesson SET isShowing = true WHERE id =" + lesson.getId();
-    	} else {
-    		strPrepSQL_update = "UPDATE lesson SET isShowing = false WHERE id =" + lesson.getId();
-    	}
-
+    public void create(Assessment assessment){
+    	PreparedStatement prepStmt_create;
+    	String strPrepSQL_create = "INSERT INTO assessment VALUES (nextval('assessment_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_update = connection.prepareStatement(strPrepSQL_update);
-			prepStmt_update.executeUpdate();
-    	}catch(Exception e){
-			e.printStackTrace();
-    	}
-    }
-
-    public void create(String name,  Teacher teacher,  String description, int grade){
-    	PreparedStatement prepStmt_show, prepStmt_create;
-    	String strPrepSQL_show = "SELECT * FROM lesson";
-    	String strPrepSQL_create = "";
-    	int count = 0;
-    	try{
-    		setup();
-			Class.forName(driverClassName);
-			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_show = connection.prepareStatement(strPrepSQL_show);
-			resultSet = prepStmt_show.executeQuery();
-
-			while(resultSet.next()){
-				count++;
-			}
-
-			strPrepSQL_create = "INSERT INTO lesson VALUES (" + count + "," + name + "," + teacher.getId() + "," + "true," + description + "," + grade + ")";//未完成
+			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
+			prepStmt_create.setDate(1, (Date) assessment.getDate());
+			prepStmt_create.setInt(2, assessment.getYear());
+			prepStmt_create.setInt(3, assessment.getStudent().getId());
+			prepStmt_create.setInt(4, assessment.getLessonId());
+			prepStmt_create.setInt(5, assessment.getItem1());
+			prepStmt_create.setInt(6, assessment.getItem2());
+			prepStmt_create.setInt(7, assessment.getItem3());
+			prepStmt_create.setInt(8, assessment.getItem4());
+			prepStmt_create.setInt(9, assessment.getItem5());
+			prepStmt_create.setInt(10, assessment.getItem6());
+			prepStmt_create.setInt(11, assessment.getItem7());
+			prepStmt_create.setInt(12, assessment.getItem8());
+			prepStmt_create.setInt(13, assessment.getItem9());
+			prepStmt_create.setInt(14, assessment.getItem10());
+			prepStmt_create.setInt(15, assessment.getItem11());
+			prepStmt_create.setInt(16, assessment.getItem12());
+			prepStmt_create.setInt(17, assessment.getItem13());
 
 			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
+			
+			prepStmt_create.close();
+			connection.close();
     	}catch(Exception e){
 			e.printStackTrace();
     	}
