@@ -15,7 +15,7 @@
 	<input type="submit" value="ログアウト">
 	</form>
 	<br>
-	<%-- 授業ボックステンプレ --%>
+	<%-- 授業ボックス --%>
 	<%
     ServletContext ctx = getServletContext();
 	ArrayList<Lesson> lessonList = (ArrayList<Lesson>) ctx.getAttribute("lessonList");
