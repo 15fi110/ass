@@ -12,11 +12,11 @@
 		<form action="Login" method="post">
 			<b> 学籍番号</b>
 			<br>
-			<input type="text" name="userID" maxlength="7">
+			<input type="text" name="userID" size="29"maxlength="7">
 			<br>
 			<b> パスワード</b>
 			<br>
-			<input type="password" name="password" maxlength="20">
+			<input type="password" name="password" size="30" maxlength="20">
 			<br>
 			<%-- IDかパスワードが不正です --%>
 			<br>
