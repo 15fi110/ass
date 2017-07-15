@@ -29,7 +29,7 @@ public class AssessmentDAO extends BaseDAO {
 				assessment.setId(resultSet.getInt("id"));
 				assessment.setDate(resultSet.getDate("date"));
 				assessment.setYear(resultSet.getInt("year"));
-				Student student = (Student)new UserDAO().getUserByUserID(resultSet.getString("userid"), UserType.STUDENT);
+				Student student = (Student)new UserDAO().getUserById(resultSet.getInt("userid"), UserType.STUDENT);
 				assessment.setStudent(student);
 				assessment.setLessonId(resultSet.getInt("lessonid"));
 				assessment.setItem1(resultSet.getInt("item1"));
