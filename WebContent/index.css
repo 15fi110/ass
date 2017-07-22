@@ -2,7 +2,16 @@ body{
 	background-color : #eeeeee;
 	font-family : Meiryo;
 }
-div {
+.title{
+	background-color : #ffffff;
+		text-align : center;
+	padding : 5px;
+	border : 1px solid #cccccc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.box {
 	background-color : #ffffff;
 	width : 200px;
 	text-align : center;

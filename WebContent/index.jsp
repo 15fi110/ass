@@ -10,11 +10,10 @@
 <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-	<b>授業一覧</b>
+	<div class = "title"><b>授業一覧</b></div>
 	<form action="Logout" method="get">
 	<input type="submit" value="ログアウト">
 	</form>
-	<br>
 	<%-- 授業ボックス --%>
 	<%
     ServletContext ctx = getServletContext();
@@ -24,7 +23,7 @@
 		return;
 	}
     for(int i = 0; i < lessonList.size(); i++){
-    	out.print("<div>" + "<b>" + lessonList.get(i).getName() + "</b>" +
+    	out.print("<div class = \"box\">" + "<b>" + lessonList.get(i).getName() + "</b>" +
     	"<form action=\"Lesson\" method=\"post\">" +
     	"<input type=\"hidden\" name=\"id\" value=" + lessonList.get(i).getId() + ">" +
     	"<input type=\"submit\" value=\"個別ページへ\">" +
