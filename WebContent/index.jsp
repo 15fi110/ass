@@ -7,13 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="index-ghost.css">
 </head>
 <body>
-	<div class = "title"><b>授業一覧</b></div>
 	<form action="Logout" method="get">
-	<input type="submit" value="ログアウト">
-	</form>
+	<button class = "logout" type="submit">ログアウト</button></form>
+	<div class = "title"><b>授業一覧</b></div>
+	
 	<%-- 授業ボックス --%>
 	<%
     ServletContext ctx = getServletContext();
