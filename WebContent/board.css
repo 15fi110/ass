@@ -2,18 +2,7 @@ body{
 	background-color : #eeeeee;
 	font-family : Meiryo;
 }
-.title {
-	background-color : #ffffff;
-	width : 100px;
-	text-align : center;
-	padding : 10px;
-	border : 1px solid #cccccc;
-	margin : left;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-.logout{
+.Rbutton{
 	float : right;
     font-size: 0.5cm;
     font-weight: bold;
@@ -25,10 +14,21 @@ body{
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
-.box{
+.Lbutton{
+	float : left;
+    font-size: 0.5cm;
+    font-weight: bold;
+	padding: 10px 30px;
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.comment{
 	background-color : #ffffff;
-	width : 300px;
-	text-align : center;
+	text-align : left;
 	padding : 10px;
 	border : 1px solid #cccccc;
 	margin : 50px auto;

@@ -5,13 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="board.css">
 </head>
 <body>
-	<input type="button" value="授業一覧へ">
-	<input type="button" value="個別ページへ">
+	<button class = "Lbutton" type="button" >授業一覧へ</button>
+	<button class = "Rbutton" type="button" >個別ページへ</button>
 	<br>
+	<div class = "comment">
 	<b>学籍番号</b> 投稿内容
 	<br>
+	</div>
 	<input type="checkbox">教員の閲覧を許可する
 	<br>
 	<textarea id="comment" name="comment" rows="4" cols="40"
