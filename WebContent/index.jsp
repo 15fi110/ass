@@ -1,3 +1,4 @@
+
 <%@page import="model.Lesson"%>
 <%@page import="model.BaseUser"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="index-ghost.css">
 </head>
 <body>
 	<b>授業一覧</b>

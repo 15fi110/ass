@@ -8,8 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="review.css">
 </head>
 <body>
+
 	<%
 	ServletContext ctx = getServletContext();
 	Lesson lesson = (Lesson) ctx.getAttribute("lesson");
@@ -20,11 +22,16 @@
 	%>
 	<form action="Lesson" method="post">
     	<input type="hidden" name="id" value="<% out.print(lesson.getId()); %>">
-    	<input type="submit" value="個別ページへ">
+    	<input class="goIndividual" type="submit" value="個別ページへ">
     </form>
     <form action="LessonList" method="get">
-    	<input type="submit" value="授業一覧へ">
+    	<input class="goIndex" type="submit" value="授業一覧へ">
     </form>
+    <br>
+	<br>
+	<br>
+	<br>
+	<br>
     <% if(session.getAttribute("user") != null){
     		BaseUser user = (BaseUser)session.getAttribute("user");
 			if(user.getType() == UserType.STUDENT){
@@ -39,5 +46,6 @@
 
 
 	<img src='<%=request.getContextPath()%>/chart.png'>
+
 </body>
 </html>

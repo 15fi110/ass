@@ -1,0 +1,30 @@
+body{
+	background-color : #eeeeee;
+	font-family : Meiryo;
+}
+.submit{
+	margin : 30px;
+	float : right;
+    font-size: 0.5cm;
+    font-weight: bold;
+	padding: 10px 30px;
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.cancel{
+	margin : 30px;
+	float : left;
+    font-size: 0.5cm;
+    font-weight: bold;
+	padding: 10px 30px;
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

@@ -5,15 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="create.css">
 </head>
 <body>
 	<input type="text" name="subjectName" size="30" placeholder="こ↑こ↓に入力">
 	<br>
-	<textarea id="subjectOutline" name="subjectOutline" rows="50" cols="20"
+	<div class="subComment">
+	<textarea id="subjectOutline" name="subjectOutline" rows="10" cols="100"
 		maxlength="1000" placeholder="こ↑こ↓に入力"></textarea>
+	</div>
 	<br>
-	<input type="submit" value="確定">
-	<br>
-	<input type="submit" value="戻る">
+	<button class="submit" type="submit">確定</button>
+	<button class="cancel" type="submit">戻る</button>
 </body>
 </html>

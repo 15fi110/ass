@@ -6,11 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="post.css">
 </head>
 <body>
-	<input type="button" value="詳細へ">
+	<button class="go" type="button">詳細へ</button>
 	<br>
+<<<<<<< HEAD
 	<form action="Assess" method="post">
+	<div class="subReview">
 	<a><%out.print(AssessmentItem.ITEM1);%></a><br>
 	<input type="radio" name="item1" value="1">1
 	<input type="radio" name="item1" value="2">2
@@ -101,11 +104,13 @@
 	<input type="radio" name="item13" value="3">3
 	<input type="radio" name="item13" value="4">4
 	<input type="radio" name="item13" value="5">5
+	</div>
+
 	<br>
-	<textarea id="comment" name="comment" maxlength="400"
+	<textarea id="comment" name="comment" maxlength="400" rows="4" cols="100"
 		placeholder="こ↑こ↓に入力"></textarea>
 	<br>
-    	<input type="submit" value="投稿する">
+    	<input class="submit" type="submit" value="投稿する">
     </form>
 
 </body>
