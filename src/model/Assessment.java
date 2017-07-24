@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Assessment {
@@ -23,10 +24,64 @@ public class Assessment {
 	private int item13;
 
 	public void register(){
-		
+
 	}
-	public Assessment aggregate(){
-		return null;
+	public AssessmentResult aggregate(ArrayList<Assessment> list){
+		AssessmentResult result = new AssessmentResult();
+		float item1 = 0;
+		float item2 = 0;
+		float item3 = 0;
+		float item4 = 0;
+		float item5 = 0;
+		float item6 = 0;
+		float item7 = 0;
+		float item8 = 0;
+		float item9 = 0;
+		float item10 = 0;
+		float item11 = 0;
+		float item12 = 0;
+		float item13 = 0;
+		for(Assessment assessment : list){
+			if(assessment.getItem1() == 0){
+				continue;
+			}
+			item1 += (float)assessment.getItem1();
+			item2 += (float)assessment.getItem2();
+			item3 += (float)assessment.getItem3();
+			item4 += (float)assessment.getItem4();
+			item5 += (float)assessment.getItem5();
+			item6 += (float)assessment.getItem6();
+			item7 += (float)assessment.getItem7();
+			item8 += (float)assessment.getItem8();
+			item9 += (float)assessment.getItem9();
+			item10 += (float)assessment.getItem10();
+			item11 += (float)assessment.getItem11();
+			item12 += (float)assessment.getItem12();
+			item13 += (float)assessment.getItem13();
+		}
+		result.setItem1(item1 / (float)list.size());
+		result.setItem2(item2 / (float)list.size());
+		result.setItem3(item3 / (float)list.size());
+		result.setItem4(item4 / (float)list.size());
+		result.setItem5(item5 / (float)list.size());
+		result.setItem6(item6 / (float)list.size());
+		result.setItem7(item7 / (float)list.size());
+		result.setItem8(item8 / (float)list.size());
+		result.setItem9(item9 / (float)list.size());
+		result.setItem10(item10 / (float)list.size());
+		result.setItem11(item11 / (float)list.size());
+		result.setItem12(item12 / (float)list.size());
+		result.setItem13(item13 / (float)list.size());
+		LessonDAO lessonDAO = new LessonDAO();
+		Lesson lesson = lessonDAO.findById(lessonId);
+		String description;
+		if(lesson == null){
+			description = "";
+		}else{
+			description = lesson.getName();
+		}
+		result.setDescription(description);
+		return result;
 	}
 	public int getId() {
 		return id;
@@ -136,5 +191,10 @@ public class Assessment {
 	public void setItem13(int item13) {
 		this.item13 = item13;
 	}
-	
+
+	public void setUpDate(){
+		this.date = new Date();
+		this.year = date.getYear();
+	}
+
 }

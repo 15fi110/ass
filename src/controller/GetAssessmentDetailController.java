@@ -19,7 +19,7 @@ import model.Lesson;
 @WebServlet({"/GetAssessmentDetailController", "/Detail"})
 public class GetAssessmentDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -60,7 +60,7 @@ public class GetAssessmentDetailController extends HttpServlet {
 		ServletContext ctx = super.getServletContext();
 
 		ctx.setAttribute("lesson", result);
-		getServletContext().getRequestDispatcher("/individual.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/review.jsp").forward(request, response);
 	}
 
 }

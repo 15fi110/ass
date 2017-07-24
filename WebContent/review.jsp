@@ -1,3 +1,6 @@
+<%@page import="model.BaseUser.UserType"%>
+<%@page import="model.Lesson"%>
+<%@page import="model.BaseUser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,8 +10,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="button" value="個別ページへ">
-	<input type="button" value="授業一覧へ">
-	<textarea id="comment" name="comment" readonly>評価</textarea>
+	<%
+	ServletContext ctx = getServletContext();
+	Lesson lesson = (Lesson) ctx.getAttribute("lesson");
+
+	if(lesson == null){
+		return;
+	}
+	%>
+	<form action="Lesson" method="post">
+    	<input type="hidden" name="id" value="<% out.print(lesson.getId()); %>">
+    	<input type="submit" value="個別ページへ">
+    </form>
+    <form action="LessonList" method="get">
+    	<input type="submit" value="授業一覧へ">
+    </form>
+    <% if(session.getAttribute("user") != null){
+    		BaseUser user = (BaseUser)session.getAttribute("user");
+			if(user.getType() == UserType.STUDENT){
+				out.print(
+						"<form action=\"GetAssess\" method=\"get\">" +
+				    	"<input type=\"submit\" value=\"評価を行う\">" +
+				    	"</form>"
+			    );
+			}
+
+    	}%>
+
+
+	<img src='<%=request.getContextPath()%>/chart.png'>
 </body>
 </html>

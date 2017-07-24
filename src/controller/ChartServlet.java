@@ -1,8 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,44 +15,45 @@ import org.jfree.chart.plot.SpiderWebPlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import model.Assessment;
+import model.AssessmentDAO;
+import model.AssessmentResult;
+import model.Lesson;
+
 public class ChartServlet extends HttpServlet {
 	 @Override
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	      throws ServletException, IOException {
 
-//	    // コンテンツタイプ設定
-//	    response.setContentType("image/png");
-//
-//	    // 円グラフのデータ作成
-//	    DefaultPieDataset data = new DefaultPieDataset();
-//	    data.setValue("いちご", 1500);
-//	    data.setValue("オレンジ", 1500);
-//	    data.setValue("バナナ", 5000);
-//
-//	    // JFreeChartオブジェクト作成
-//	    JFreeChart chart = new JFreeChart(new PiePlot(data));
-//
-//	    // 円グラフ出力
-//	    ChartUtilities.writeChartAsPNG(response.getOutputStream(), chart, 200, 200);
-//
-//	    // アウトプットストリームをフラッシュ
-//	    response.getOutputStream().flush();
-
-
 	DefaultCategoryDataset ds = new DefaultCategoryDataset();
 
-		Random rand = new Random();
+	ServletContext ctx = super.getServletContext();
 
-		String group0 = "上野さん";
-		ds.addValue(rand.nextDouble()*10, group0, "容姿");
-		ds.addValue(rand.nextDouble()*10, group0, "学歴");
-		ds.addValue(rand.nextDouble()*10, group0, "知力");
-		ds.addValue(rand.nextDouble()*10, group0, "財力");
-		ds.addValue(rand.nextDouble()*10, group0, "変態");
-		ds.addValue(rand.nextDouble()*10, group0, "紳士");
+	Lesson lesson = (Lesson)ctx.getAttribute("lesson");
+
+	AssessmentDAO assessmentDAO = new AssessmentDAO();
+	ArrayList<Assessment> assessmentList = assessmentDAO.findByLessonId(lesson.getId());
+
+	Assessment assessment = new Assessment();
+	AssessmentResult result = assessment.aggregate(assessmentList);
+
+		String group0 = result.getDescription();
+		ds.addValue(result.getItem1()*10, group0, "1");
+		ds.addValue(result.getItem2()*10, group0, "2");
+		ds.addValue(result.getItem3()*10, group0, "3");
+		ds.addValue(result.getItem4()*10, group0, "4");
+		ds.addValue(result.getItem5()*10, group0, "5");
+		ds.addValue(result.getItem6()*10, group0, "6");
+		ds.addValue(result.getItem7()*10, group0, "7");
+		ds.addValue(result.getItem8()*10, group0, "8");
+		ds.addValue(result.getItem9()*10, group0, "9");
+		ds.addValue(result.getItem10()*10, group0, "10");
+		ds.addValue(result.getItem11()*10, group0, "11");
+		ds.addValue(result.getItem12()*10, group0, "12");
+		ds.addValue(result.getItem13()*10, group0, "13");
 
 		SpiderWebPlot sp = new SpiderWebPlot(ds);
-		JFreeChart fc = new JFreeChart("人間力レーダーチャート", TextTitle.DEFAULT_FONT, sp, true);
+		JFreeChart fc = new JFreeChart("結果レーダーチャート", TextTitle.DEFAULT_FONT, sp, true);
 
 		    // コンテンツタイプ設定
 		    response.setContentType("image/png");

@@ -1,6 +1,7 @@
 <%@page import="model.Lesson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,15 +22,27 @@
 
     out.print("<br>"  +
     	"<form action=\"Detail\" method=\"post\">" +
-    	"<name=\"id\" value=" + lesson.getId() + ">" +
+    	"<input type=\"hidden\" name=\"id\" value=" + lesson.getId() + ">" +
     	"<input type=\"submit\" value=\"詳細へ\">" +
     	"</form>" +
     	"<br>" +
 		"<form action=\"Board\" method=\"post\">" +
-    	"<name=\"id\" value=" + lesson.getId() + ">" +
+    	"<input type=\"hidden\" name=\"id\" value=" + lesson.getId() + ">" +
     	"<input type=\"submit\" value=\"掲示板へ\">" +
     	"</form>" +
     	"<br>");
+
+ // クッキーに格納する文字列を作成(URLエンコードをする)
+  	String value = URLEncoder.encode(String.valueOf(lesson.getId()));
+
+  // 名前が"accesstime"、値が現在時刻であるクッキーを作成
+  Cookie cookie = new Cookie("lesson", value);
+
+  // クッキーの設定
+  cookie.setMaxAge(7 * 24 * 60 * 60); //有効期間を1週間に設定
+
+  // クッキーを発行
+  response.addCookie(cookie);
 
 %>
 
@@ -38,7 +51,5 @@
 	<br>
 	<input type="button" value="掲示板へ">
 	<br> -->
-	<p>a</p>
-	<img src='<%=request.getContextPath()%>/chart.png'>
 </body>
 </html>

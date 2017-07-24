@@ -66,15 +66,21 @@ public class BaseUser {
 		return result;
 	}
 
-	// staticメソッドにしたほうがインスタンスが無駄に作成されないが役割分担を明確にするためにインスタンスメソッドにしている
-	public BaseUser getUserByUserID(String userID) {
+	public static BaseUser getUserByUserID(String userID) {
 		BaseUser user = null;
+		UserDAO userDAO = new UserDAO();
+		UserType userType;
 		if (userID.indexOf(UserConst.TEACHER_ID) != -1) {
-
+			userType = UserType.TEACHER;
 		} else if (userID.indexOf(UserConst.ADMINISTRATOR_ID) != -1) {
-
+			userType = UserType.ADMINISTRATOR;
 		} else {
-
+			userType = UserType.STUDENT;
+		}
+		try{
+			user = userDAO.getUserByUserID(userID, userType);
+		}catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return user;
 	}

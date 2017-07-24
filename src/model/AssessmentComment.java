@@ -10,9 +10,9 @@ public class AssessmentComment {
 	private String content;
 	private Student student;
 	private Lesson lesson;
-	
+
 	public void register(String content, Student student){
-		hogehoge
+
 	}
 	public static ArrayList<AssessmentComment> getList(int claasId){
 		return null;
@@ -53,5 +53,10 @@ public class AssessmentComment {
 	public void setLesson(Lesson lesson) {
 		this.lesson = lesson;
 	}
-	
+
+	public void setUpDate(){
+		this.date = new Date();
+		this.year = date.getYear();
+	}
+
 }

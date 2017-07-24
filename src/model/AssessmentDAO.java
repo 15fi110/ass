@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class AssessmentDAO extends BaseDAO {
 			while (resultSet.next()) {
 				Assessment assessment = new Assessment();
 				assessment.setId(resultSet.getInt("id"));
-				assessment.setDate(resultSet.getDate("date"));
+//				assessment.setDate(new java.util.Date(resultSet.getString("date")));
 				assessment.setYear(resultSet.getInt("year"));
 				Student student = (Student)new UserDAO().getUserById(resultSet.getInt("userid"), UserType.STUDENT);
 				assessment.setStudent(student);
@@ -69,7 +68,7 @@ public class AssessmentDAO extends BaseDAO {
 			prepStmt_delete = connection.prepareStatement(strPrepSQL_delete);
 			prepStmt_delete.setInt(1, assessment.getId());
 			prepStmt_delete.executeUpdate();
-			
+
 			prepStmt_delete.close();
 			connection.close();
     	}catch(Exception e){
@@ -79,33 +78,32 @@ public class AssessmentDAO extends BaseDAO {
 
     public void create(Assessment assessment){
     	PreparedStatement prepStmt_create;
-    	String strPrepSQL_create = "INSERT INTO assessment VALUES (nextval('assessment_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//    	String strPrepSQL_create = "INSERT INTO assessment VALUES (nextval('assessment_id_seq'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    	String strPrepSQL_update = "UPDATE assessment SET item1 = ?, item2 = ?, item3 = ?, item4 = ?,"
+        		+ "item5 = ?, item6 = ?, item7 = ?, item8 = ?, item9 = ?, item10 = ?, item11 = ?,"
+        		+ "item12 = ?, item13 = ? WHERE userid = ?";
     	try{
     		setup();
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
-			prepStmt_create.setDate(1, (Date) assessment.getDate());
-			prepStmt_create.setInt(2, assessment.getYear());
-			prepStmt_create.setInt(3, assessment.getStudent().getId());
-			prepStmt_create.setInt(4, assessment.getLessonId());
-			prepStmt_create.setInt(5, assessment.getItem1());
-			prepStmt_create.setInt(6, assessment.getItem2());
-			prepStmt_create.setInt(7, assessment.getItem3());
-			prepStmt_create.setInt(8, assessment.getItem4());
-			prepStmt_create.setInt(9, assessment.getItem5());
-			prepStmt_create.setInt(10, assessment.getItem6());
-			prepStmt_create.setInt(11, assessment.getItem7());
-			prepStmt_create.setInt(12, assessment.getItem8());
-			prepStmt_create.setInt(13, assessment.getItem9());
-			prepStmt_create.setInt(14, assessment.getItem10());
-			prepStmt_create.setInt(15, assessment.getItem11());
-			prepStmt_create.setInt(16, assessment.getItem12());
-			prepStmt_create.setInt(17, assessment.getItem13());
+			prepStmt_create = connection.prepareStatement(strPrepSQL_update);
+			prepStmt_create.setInt(1, assessment.getItem1());
+			prepStmt_create.setInt(2, assessment.getItem2());
+			prepStmt_create.setInt(3, assessment.getItem3());
+			prepStmt_create.setInt(4, assessment.getItem4());
+			prepStmt_create.setInt(5, assessment.getItem5());
+			prepStmt_create.setInt(6, assessment.getItem6());
+			prepStmt_create.setInt(7, assessment.getItem7());
+			prepStmt_create.setInt(8, assessment.getItem8());
+			prepStmt_create.setInt(9, assessment.getItem9());
+			prepStmt_create.setInt(10, assessment.getItem10());
+			prepStmt_create.setInt(11, assessment.getItem11());
+			prepStmt_create.setInt(12, assessment.getItem12());
+			prepStmt_create.setInt(13, assessment.getItem13());
+			prepStmt_create.setInt(14, assessment.getStudent().getId());
 
-			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
-			
+
 			prepStmt_create.close();
 			connection.close();
     	}catch(Exception e){

@@ -71,6 +71,7 @@ public class LoginController extends HttpServlet {
 				System.out.println(lesson.getName());
 			}
 			ctx.setAttribute("lessonList", resultList);
+			ctx.setAttribute("user", user);
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
 			// ログインに失敗している場合はlogin.jspへ

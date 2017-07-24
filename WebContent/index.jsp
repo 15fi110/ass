@@ -1,7 +1,9 @@
 <%@page import="model.Lesson"%>
+<%@page import="model.BaseUser"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,8 +35,24 @@
     	"</div>");
     }
 
-%>
+    BaseUser user = (BaseUser) ctx.getAttribute("user");
 
+ 	// クッキーに格納する文字列を作成(URLエンコードをする)
+ 	String numberValue = URLEncoder.encode(user.getUserID());
+ 	String passwordValue = URLEncoder.encode(user.getPassword());
+
+ // 名前が"accesstime"、値が現在時刻であるクッキーを作成
+ Cookie numberCookie = new Cookie("number", numberValue);
+ Cookie passwordCookie = new Cookie("password", passwordValue);
+
+ // クッキーの設定
+ numberCookie.setMaxAge(7 * 24 * 60 * 60); //有効期間を1週間に設定
+ passwordCookie.setMaxAge(7 * 24 * 60 * 60); //有効期間を1週間に設定
+
+ // クッキーを発行
+ response.addCookie(numberCookie);
+ response.addCookie(passwordCookie);
+ %>
 	<!-- <b>授業名</b>
 	<form action="Lesson" method="post">
 	<name="id" value=>

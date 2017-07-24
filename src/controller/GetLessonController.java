@@ -50,9 +50,7 @@ public class GetLessonController extends HttpServlet {
 		BaseUser user = (BaseUser)session.getAttribute("user");
 
 
-
 		System.out.println(request.getParameterMap());
-
 		int lessonId = Integer.parseInt(request.getParameter("id"));
 
 		Lesson result = Lesson.getLessonById(lessonId);

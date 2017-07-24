@@ -33,7 +33,9 @@ public class UserDAO extends BaseDAO {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt = connection.prepareStatement(strPrepSQL_find);
-			prepStmt.setString(0, userID);
+			prepStmt.setString(1, userID);
+
+			System.out.println(prepStmt);
 
 			resultSet = prepStmt.executeQuery();
 
