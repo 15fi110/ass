@@ -5,10 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="review.css">
 </head>
 <body>
-	<input type="button" value="個別ページへ">
-	<input type="button" value="授業一覧へ">
-	<textarea id="comment" name="comment" readonly>評価</textarea>
+	<button class="goIndividual" type="button">個別ページ</button>
+	<button class="goIndex" type="button">授業一覧へ</button>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<textarea id="comment" name="comment" rows="4" cols="100"maxlength="400" readonly>評価</textarea>
 </body>
 </html>

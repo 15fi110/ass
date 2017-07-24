@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="individual.css">
+</head>
+<body>
 </head>
 <body>
 	<%
@@ -16,18 +19,18 @@
 		return;
 	}
 
-    out.print("<b>" + lesson.getName() + "</b>" +
-	"<br> " + lesson.getDescription());
+    out.print("<div class=\"subBox\">" + "<b>" + lesson.getName() + "</b>" +
+	"<br> " + lesson.getDescription() + "</div>");
 
     out.print("<br>"  +
     	"<form action=\"Detail\" method=\"post\">" +
     	"<name=\"id\" value=" + lesson.getId() + ">" +
-    	"<input type=\"submit\" value=\"詳細へ\">" +
+    	"<button class=\"goReview\" type=\"submit\" value=\"詳細へ\"></button>" +
     	"</form>" +
     	"<br>" +
 		"<form action=\"Board\" method=\"post\">" +
     	"<name=\"id\" value=" + lesson.getId() + ">" +
-    	"<input type=\"submit\" value=\"掲示板へ\">" +
+    	"<button class=\"goBoard\" type=\"submit\" value=\"掲示板へ\"></button>" +
     	"</form>" +
     	"<br>");
 

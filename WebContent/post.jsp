@@ -5,21 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="post.css">
 </head>
 <body>
-	<input type="button" value="詳細へ">
+	<button class="go" type="button">詳細へ</button>
 	<br>
-	<textarea id="comment" name="comment" readonly>評価内容</textarea>
+	<div class="subReview">
+	<p>評価内容
 	<input type="radio" name="review" value="1">1
 	<input type="radio" name="review" value="2">2
 	<input type="radio" name="review" value="3">3
 	<input type="radio" name="review" value="4">4
 	<input type="radio" name="review" value="5">5
+	</p>
+	</div>
 	<br>
-	<textarea id="comment" name="comment" maxlength="400"
+	<textarea id="comment" name="comment" maxlength="400" rows="4" cols="100"
 		placeholder="こ↑こ↓に入力"></textarea>
 	<br>
-	<input type="buttonn" value="投稿する">
+	<button class="submit" type="buttonn">投稿する</button>
 
 </body>
 </html>

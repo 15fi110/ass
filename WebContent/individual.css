@@ -1,0 +1,40 @@
+body{
+	background-color : #eeeeee;
+	font-family : Meiryo;
+}
+.subBox{
+	background-color : #ffffff;
+	width : 1000px;
+	padding : 10px;
+	border : 1px solid #cccccc;
+	margin : auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.goReview{
+	margin : 10px;
+	float : right;
+    font-size: 0.5cm;
+    font-weight: bold;
+	padding: 10px 30px;
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.goBoard{
+	margin : 10px;
+	float : left;
+    font-size: 0.5cm;
+    font-weight: bold;
+	padding: 10px 30px;
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
