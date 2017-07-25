@@ -12,20 +12,26 @@ public class BoardComment {
 	private int lessonId;
 	private boolean canShowTeacher;
 
-	public void register(String content, BaseUser user, int lessonId){
+	public void register(String content, BaseUser user, int lessonId, boolean canShowTeacher){
 		BoardCommentDAO boardCommentDAO = new BoardCommentDAO();
 		date = new Date();
 		year = date.getYear() + 1900;
-		canShowTeacher = true;
+		this.canShowTeacher = canShowTeacher;
 		this.lessonId = lessonId;
 		this.user = user;
 		this.content = content;
 		boardCommentDAO.create(this);
 	}
-	public static ArrayList<BoardComment> getList(int lessonId, boolean canShowTeacher){
+	public static ArrayList<BoardComment> getList(int lessonId){
 		BoardCommentDAO boardCommentDAO = new BoardCommentDAO();
 		ArrayList<BoardComment> resultList = new ArrayList<BoardComment>();
 		resultList = boardCommentDAO.findByLessonId(lessonId);
+		return resultList;
+	}
+	public static ArrayList<BoardComment> getListByTeaher(int lessonId){
+		BoardCommentDAO boardCommentDAO = new BoardCommentDAO();
+		ArrayList<BoardComment> resultList = new ArrayList<BoardComment>();
+		resultList = boardCommentDAO.findByLessonIdTeacher(lessonId);
 		return resultList;
 	}
 	public int getId() {
@@ -65,7 +71,7 @@ public class BoardComment {
 	public void setLessonId(int lessonId) {
 		this.lessonId = lessonId;
 	}
-	public boolean isCanShowTeacher() {
+	public boolean getCanShowTeacher() {
 		return canShowTeacher;
 	}
 	public void setCanShowTeacher(boolean canShowTeacher) {

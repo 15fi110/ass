@@ -43,6 +43,9 @@
     <input class="submit" type="submit" value="確定">
 	</form>
 
+	<form action="Admin" method="get">
 	<input class="cancel" type="submit" value="戻る">
+	</form>
+
 </body>
 </html>

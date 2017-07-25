@@ -6,12 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>個別ページ</title>
 <link rel="stylesheet" type="text/css" href="individual.css">
 </head>
 <body>
 </head>
 <body>
+	<form action="LessonList" method="get">
+	<input class="goIndex" type="submit" value="授業一覧へ">
+	</form>
 	<%
     ServletContext ctx = getServletContext();
 	Lesson lesson = (Lesson) ctx.getAttribute("lesson");

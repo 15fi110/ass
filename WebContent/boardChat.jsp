@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>掲示板</title>
 </head>
 <body>
 
@@ -27,6 +27,7 @@
     </form>
 
 <%
+
 //内容: クッキーを使用する(クッキーの取得)
 
 //クッキーの配列を取得
@@ -104,7 +105,7 @@ BoardChatController = {};
                 	//本番用
                     //var ws = new WebSocket("ws://150.95.151.171:8080/ass/echo");
                 	//local
-                    var ws = new WebSocket("ws://localhost:8080/ass/echo/<%=number%>/<%=password%>/<%=lessonId%>");
+                    var ws = new WebSocket("ws://localhost:8080/ass/echo/<%=number%>/<%=password%>/<%=lessonId%>/" + $("#flag").value);
                     ws.onmessage = function(event) {
                     	if(comment.length >= 10){
                     		comment.pop();
@@ -130,6 +131,8 @@ BoardChatController = {};
             <input type="text" id="msg" size="20">
             <input type="button" id="connect" value="Connect" onclick="BoardChatController.connect();">
             <input type="button" id="send" value="Send" onclick="BoardChatController.send();" disabled>
+            <input type="checkbox" id="flag" value=false>教員の閲覧を許可する
+            <br>
         </form>
         <div id="msgbox" style="border-style: solid;width: 1000px;height: 600px"></div>
 
