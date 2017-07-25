@@ -22,12 +22,16 @@
 	<%-- 授業ボックス --%>
 	<%
     ServletContext ctx = getServletContext();
+	if(ctx.getAttribute("loginFailed") == null ||  ctx.getAttribute("lessonList") == null){
+		response.sendRedirect("./login.jsp");
+		return;
+	}
 	ArrayList<Lesson> lessonList = (ArrayList<Lesson>) ctx.getAttribute("lessonList");
 
 	boolean loginFailed = (boolean)ctx.getAttribute("loginFailed");
 
 	if(loginFailed){
-		response.sendRedirect("./login.jsp"); // B.jspへリダイレクト
+		response.sendRedirect("./login.jsp");
 	}
 	if(lessonList == null){
 		return;

@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ public class AssessmentCommentDAO extends BaseDAO{
 			while (resultSet.next()) {
 				AssessmentComment assessmentComment = new AssessmentComment();
 				assessmentComment.setId(resultSet.getInt("id"));
-				assessmentComment.setDate(resultSet.getDate("date"));
 				assessmentComment.setYear(resultSet.getInt("year"));
 				assessmentComment.setContent(resultSet.getString("content"));
 				Student student = (Student)new UserDAO().getUserById(resultSet.getInt("userid"), UserType.STUDENT);
@@ -59,13 +57,12 @@ public class AssessmentCommentDAO extends BaseDAO{
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
-			prepStmt_create.setDate(1, (Date) assessmentComment.getDate());
+			prepStmt_create.setString(1, assessmentComment.getDate().toString());
 			prepStmt_create.setInt(2, assessmentComment.getYear());
 			prepStmt_create.setString(3, assessmentComment.getContent());
 			prepStmt_create.setInt(4, assessmentComment.getStudent().getId());
 			prepStmt_create.setInt(5, assessmentComment.getLesson().getId());
 
-			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
 
 			prepStmt_create.close();

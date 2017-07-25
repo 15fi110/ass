@@ -18,6 +18,13 @@
 	if(lesson == null){
 		return;
 	}
+
+	if(ctx.getAttribute("short") != null){
+		if((boolean)ctx.getAttribute("short")){
+			out.println("未入力項目があります<br>");
+		}
+	}
+
 	%>
 
 	<a><% out.print(lesson.getName()); %>の評価を行う</a>

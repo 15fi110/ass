@@ -103,9 +103,9 @@ BoardChatController = {};
                 }
                 d.connect = function() {
                 	//本番用
-                    //var ws = new WebSocket("ws://150.95.151.171:8080/ass/echo");
+                    var ws = new WebSocket("ws://150.95.151.171:8080/ass/echo/<%=number%>/<%=password%>/<%=lessonId%>/" + $("#flag").value);
                 	//local
-                    var ws = new WebSocket("ws://localhost:8080/ass/echo/<%=number%>/<%=password%>/<%=lessonId%>/" + $("#flag").value);
+                    //var ws = new WebSocket("ws://localhost:8080/ass/echo/<%=number%>/<%=password%>/<%=lessonId%>/" + $("#flag").value);
                     ws.onmessage = function(event) {
                     	if(comment.length >= 10){
                     		comment.pop();

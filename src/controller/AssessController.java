@@ -57,9 +57,8 @@ public class AssessController extends HttpServlet {
 
 		Lesson lesson = (Lesson) ctx.getAttribute("lesson");
 
-		System.out.println(request.getParameterMap());
-
 		Assessment assessment = new Assessment();
+		try{
 		assessment.setItem1(Integer.parseInt(request.getParameter("item1")));
 		assessment.setItem2(Integer.parseInt(request.getParameter("item2")));
 		assessment.setItem3(Integer.parseInt(request.getParameter("item3")));
@@ -73,21 +72,28 @@ public class AssessController extends HttpServlet {
 		assessment.setItem11(Integer.parseInt(request.getParameter("item11")));
 		assessment.setItem12(Integer.parseInt(request.getParameter("item12")));
 		assessment.setItem13(Integer.parseInt(request.getParameter("item13")));
+		}catch(Exception e){
+			ctx.setAttribute("short", true);
+			getServletContext().getRequestDispatcher("/post.jsp").forward(request, response);
+		}
+		ctx.setAttribute("short", false);
 		assessment.setLessonId(lesson.getId());
 		assessment.setStudent((Student)user);
 		assessment.setUpDate();
 
-		assessment.register();
+		ctx.setAttribute("assessment", assessment);
 
 		AssessmentComment comment = new AssessmentComment();
-		comment.setContent(request.getParameter("comment"));
+		comment.setContent(new String (request.getParameter("comment").getBytes("ISO-8859-1")));
 		comment.setStudent((Student)user);
 		comment.setLesson(lesson);
 		comment.setUpDate();
 
-		comment.register();
+		System.out.println(comment.getContent());
 
-		getServletContext().getRequestDispatcher("/individual.jsp").forward(request, response);
+		ctx.setAttribute("assessmentComment", comment);
+
+		getServletContext().getRequestDispatcher("/confirm.jsp").forward(request, response);
 	}
 
 }
