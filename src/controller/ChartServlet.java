@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,10 +14,7 @@ import org.jfree.chart.plot.SpiderWebPlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import model.Assessment;
-import model.AssessmentDAO;
 import model.AssessmentResult;
-import model.Lesson;
 
 public class ChartServlet extends HttpServlet {
 	 @Override
@@ -29,13 +25,15 @@ public class ChartServlet extends HttpServlet {
 
 	ServletContext ctx = super.getServletContext();
 
-	Lesson lesson = (Lesson)ctx.getAttribute("lesson");
+//	Lesson lesson = (Lesson)ctx.getAttribute("lesson");
 
-	AssessmentDAO assessmentDAO = new AssessmentDAO();
-	ArrayList<Assessment> assessmentList = assessmentDAO.findByLessonId(lesson.getId());
+//	AssessmentDAO assessmentDAO = new AssessmentDAO();
+//	ArrayList<Assessment> assessmentList = assessmentDAO.findByLessonId(lesson.getId());
+//
+//	Assessment assessment = new Assessment();
+//	AssessmentResult result = assessment.aggregate(assessmentList);
 
-	Assessment assessment = new Assessment();
-	AssessmentResult result = assessment.aggregate(assessmentList);
+	AssessmentResult result = (AssessmentResult)ctx.getAttribute("assessmentResult");
 
 		String group0 = result.getDescription();
 		ds.addValue(result.getItem1()*10, group0, "1");

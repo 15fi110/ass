@@ -14,12 +14,14 @@ public class Lesson {
 	private int grade;
 
 
-	public boolean changeShowing(){
-		return isShowing;
+	public static void changeShowing(int lessonId, boolean isShowing){
+		LessonDAO lessonDAO = new LessonDAO();
+		lessonDAO.update(lessonId, isShowing);
 	}
 
-	public void delete(){
-
+	public static void delete(int lessonId){
+		LessonDAO lessonDAO = new LessonDAO();
+		lessonDAO.deleteById(lessonId);
 	}
 
 	public void setDetail(){
@@ -30,8 +32,9 @@ public class Lesson {
 
 	}
 
-	public void create(int teacherId, String name, String description, int grade){
-
+	public static void create(int teacherId, String name, String description, int grade){
+		LessonDAO lessonDAO = new LessonDAO();
+		lessonDAO.create(name, description, grade, teacherId);
 	}
 
 	public int getId() {
@@ -109,6 +112,16 @@ public class Lesson {
 	public static ArrayList<Lesson> getLessonListByUserId(int userId){
 		LessonDAO lessonDAO = new LessonDAO();
 		return lessonDAO.findByUserId(userId);
+	}
+
+	public static ArrayList<Lesson> getLessonListByTeacherId(int teacherId){
+		LessonDAO lessonDAO = new LessonDAO();
+		return lessonDAO.findByTeacherId(teacherId);
+	}
+
+	public static ArrayList<Lesson> getLessonListByAdministrator(){
+		LessonDAO lessonDAO = new LessonDAO();
+		return lessonDAO.findByAdministrator();
 	}
 
 	public static Lesson getLessonById(int id){

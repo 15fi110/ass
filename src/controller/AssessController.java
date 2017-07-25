@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Assessment;
 import model.AssessmentComment;
-import model.AssessmentCommentDAO;
-import model.AssessmentDAO;
 import model.BaseUser;
 import model.Lesson;
 import model.Student;
@@ -79,8 +77,7 @@ public class AssessController extends HttpServlet {
 		assessment.setStudent((Student)user);
 		assessment.setUpDate();
 
-		AssessmentDAO assessmentDAO = new AssessmentDAO();
-		assessmentDAO.create(assessment);
+		assessment.register();
 
 		AssessmentComment comment = new AssessmentComment();
 		comment.setContent(request.getParameter("comment"));
@@ -88,8 +85,7 @@ public class AssessController extends HttpServlet {
 		comment.setLesson(lesson);
 		comment.setUpDate();
 
-		AssessmentCommentDAO assessmentCommentDAO = new AssessmentCommentDAO();
-		assessmentCommentDAO.create(comment);
+		comment.register();
 
 		getServletContext().getRequestDispatcher("/individual.jsp").forward(request, response);
 	}

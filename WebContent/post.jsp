@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="utility.AssessmentItem"%>
+<%@page import="model.Lesson"%>
+<%@page import="model.BaseUser"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +11,25 @@
 <link rel="stylesheet" type="text/css" href="post.css">
 </head>
 <body>
-	<button class="go" type="button">詳細へ</button>
+	<%
+	ServletContext ctx = getServletContext();
+	Lesson lesson = (Lesson) ctx.getAttribute("lesson");
+
+	if(lesson == null){
+		return;
+	}
+	%>
+
+	<a><% out.print(lesson.getName()); %>の評価を行う</a>
 	<br>
-<<<<<<< HEAD
+
+	<form action="Detail" method="post">
+    	<input type="hidden" name="id" value="<% out.print(lesson.getId()); %>">
+    	<input class="go" type="submit" value="詳細へ">
+    </form>
+
+	<br>
+
 	<form action="Assess" method="post">
 	<div class="subReview">
 	<a><%out.print(AssessmentItem.ITEM1);%></a><br>

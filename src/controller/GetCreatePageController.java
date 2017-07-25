@@ -1,26 +1,28 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Lesson;
+import model.Teacher;
 
 /**
- * Servlet implementation class ChangeLessonController
+ * Servlet implementation class DeleteLessonController
  */
-@WebServlet({"/ChangeLessonController", "/Change"})
-public class ChangeLessonController extends HttpServlet {
+@WebServlet({"/GetCreatePageController", "/GoCreate"})
+public class GetCreatePageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeLessonController() {
+    public GetCreatePageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,8 +31,14 @@ public class ChangeLessonController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// TODO Auto-generated method stu
+
+		ArrayList<Teacher> teacherList = Teacher.getTeacherList();
+
+		ServletContext ctx = super.getServletContext();
+		ctx.setAttribute("teacherList", teacherList);
+
+		getServletContext().getRequestDispatcher("/create.jsp").forward(request, response);
 	}
 
 	/**
@@ -38,13 +46,7 @@ public class ChangeLessonController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		int lessonId = Integer.parseInt(request.getParameter("id"));
-		boolean isShowing = Boolean.parseBoolean(request.getParameter("isShowing"));
-
-		Lesson.changeShowing(lessonId, isShowing);
-
-		getServletContext().getRequestDispatcher("/adminIndex.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }

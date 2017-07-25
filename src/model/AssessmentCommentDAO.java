@@ -12,7 +12,7 @@ public class AssessmentCommentDAO extends BaseDAO{
 		ArrayList<AssessmentComment> assessmentCommentList = new ArrayList<AssessmentComment>();
 		PreparedStatement prepStmt_find;
     	String strPrepSQL_find = "SELECT * FROM assessmentcomment WHERE lessonid = ? ";
-    	
+
     	try
 		{
 			setup();
@@ -31,10 +31,13 @@ public class AssessmentCommentDAO extends BaseDAO{
 				assessmentComment.setYear(resultSet.getInt("year"));
 				assessmentComment.setContent(resultSet.getString("content"));
 				Student student = (Student)new UserDAO().getUserById(resultSet.getInt("userid"), UserType.STUDENT);
+				if(student == null){
+					continue;
+				}
 				assessmentComment.setStudent(student);
 				Lesson lesson = new LessonDAO().findById(lessonId);
 				assessmentComment.setLesson(lesson);
-				
+
 				assessmentCommentList.add(assessmentComment);
 				}
 			resultSet.close();
@@ -47,7 +50,7 @@ public class AssessmentCommentDAO extends BaseDAO{
 		}
 		return assessmentCommentList;
 	}
-	
+
 	public void create(AssessmentComment assessmentComment){
     	PreparedStatement prepStmt_create;
     	String strPrepSQL_create = "INSERT INTO assessmentcomment VALUES (nextval('assessmentcomment_id_seq'), ?, ?, ?, ?, ?)";
@@ -64,7 +67,7 @@ public class AssessmentCommentDAO extends BaseDAO{
 
 			prepStmt_create = connection.prepareStatement(strPrepSQL_create);
 			prepStmt_create.executeUpdate();
-			
+
 			prepStmt_create.close();
 			connection.close();
     	}catch(Exception e){

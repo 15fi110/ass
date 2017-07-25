@@ -54,27 +54,37 @@ public class LoginController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("user", result);
+		ServletContext ctx = super.getServletContext();
 		if (result != null) {
 			// ログインに成功している場合はmember.jspへ
 			System.out.println(result);
 			session.setAttribute("user", result);
-			if(user.getType() == UserType.ADMINISTRATOR){
-				getServletContext().getRequestDispatcher("/adminindex.jsp").forward(request, response);
-				return;
-			}
-			System.out.println(result.getId());
-			ArrayList<Lesson> resultList = Lesson.getLessonListByUserId(result.getId());
 
-			ServletContext ctx = super.getServletContext();
-			System.out.println(resultList.size());
-			for(Lesson lesson : resultList){
-				System.out.println(lesson.getName());
+			ArrayList<Lesson> resultList = null;
+			switch(result.getType()){
+			case STUDENT:
+				resultList = Lesson.getLessonListByUserId(result.getId());
+				break;
+			case TEACHER:
+				resultList = Lesson.getLessonListByTeacherId(result.getId());
+				break;
+			case ADMINISTRATOR:
+				resultList = Lesson.getLessonListByAdministrator();
+				break;
 			}
+
 			ctx.setAttribute("lessonList", resultList);
 			ctx.setAttribute("user", user);
+			ctx.setAttribute("loginFailed", false);
+
+			if(result.getType() == UserType.ADMINISTRATOR){
+				getServletContext().getRequestDispatcher("/adminIndex.jsp").forward(request, response);
+				return;
+			}
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
 			// ログインに失敗している場合はlogin.jspへ
+			ctx.setAttribute("loginFailed", true);
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}

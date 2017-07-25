@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Assessment;
+import model.AssessmentComment;
+import model.AssessmentDAO;
+import model.AssessmentResult;
 import model.BaseUser;
 import model.Lesson;
 
@@ -49,17 +54,24 @@ public class GetAssessmentDetailController extends HttpServlet {
 		}
 		BaseUser user = (BaseUser)session.getAttribute("user");
 
-
-
-		System.out.println(request.getParameterMap());
-
 		int lessonId = Integer.parseInt(request.getParameter("id"));
 
 		Lesson result = Lesson.getLessonById(lessonId);
 
+		AssessmentDAO assessmentDAO = new AssessmentDAO();
+		ArrayList<Assessment> assessmentList = assessmentDAO.findByLessonId(lessonId);
+
+		Assessment assessment = new Assessment();
+		AssessmentResult assessmentResult = assessment.aggregate(assessmentList);
+
+		ArrayList<AssessmentComment> commentList = AssessmentComment.getList(lessonId);
+
 		ServletContext ctx = super.getServletContext();
 
 		ctx.setAttribute("lesson", result);
+		ctx.setAttribute("assessmentResult", assessmentResult);
+		ctx.setAttribute("assessmentCommentList", commentList);
+
 		getServletContext().getRequestDispatcher("/review.jsp").forward(request, response);
 	}
 

@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import model.Lesson;
 
 /**
- * Servlet implementation class ChangeLessonController
+ * Servlet implementation class DeleteLessonController
  */
-@WebServlet({"/ChangeLessonController", "/Change"})
-public class ChangeLessonController extends HttpServlet {
+@WebServlet({"/DeleteLessonController", "/Delete"})
+public class DeleteLessonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeLessonController() {
+    public DeleteLessonController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,11 +38,9 @@ public class ChangeLessonController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		int lessonId = Integer.parseInt(request.getParameter("id"));
-		boolean isShowing = Boolean.parseBoolean(request.getParameter("isShowing"));
 
-		Lesson.changeShowing(lessonId, isShowing);
+		Lesson.delete(lessonId);
 
 		getServletContext().getRequestDispatcher("/adminIndex.jsp").forward(request, response);
 	}

@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
+<%@page import="model.Lesson"%>
+<%@page import="model.BaseUser"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -10,6 +12,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%
+	ServletContext ctx = getServletContext();
+	Lesson lesson = (Lesson) ctx.getAttribute("lesson");
+
+	if(lesson == null){
+		return;
+	}
+	%>
+	<form action="Lesson" method="post">
+    	<input type="hidden" name="id" value="<% out.print(lesson.getId()); %>">
+    	<input class="goIndividual" type="submit" value="個別ページへ">
+    </form>
 
 <%
 //内容: クッキーを使用する(クッキーの取得)

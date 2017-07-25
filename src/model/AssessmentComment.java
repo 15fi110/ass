@@ -11,11 +11,14 @@ public class AssessmentComment {
 	private Student student;
 	private Lesson lesson;
 
-	public void register(String content, Student student){
-
+	public void register(){
+		AssessmentCommentDAO assessmentCommentDAO = new AssessmentCommentDAO();
+		assessmentCommentDAO.create(this);
 	}
 	public static ArrayList<AssessmentComment> getList(int claasId){
-		return null;
+		AssessmentCommentDAO assessmentCommentDAO = new AssessmentCommentDAO();
+		ArrayList<AssessmentComment> resultList =  assessmentCommentDAO.findByLessonId(claasId);
+		return resultList;
 	}
 	public int getId() {
 		return id;

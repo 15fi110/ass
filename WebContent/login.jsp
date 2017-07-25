@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ログイン</title>
 <link rel="stylesheet" type="text/css" href="login.css">
 </head>
 <body>
@@ -18,7 +18,18 @@
 			<br>
 			<input type="password" name="password" size="30" maxlength="20">
 			<br>
-			<%-- IDかパスワードが不正です --%>
+			<%
+    			ServletContext ctx = getServletContext();
+
+				if(ctx.getAttribute("loginFailed") != null){
+					boolean loginFailed = (boolean)ctx.getAttribute("loginFailed");
+
+					if(loginFailed){
+						out.println("<a>IDかパスワードが不正です</a>");
+					}
+				}
+			%>
+
 			<br>
 			<input type="submit" value="ログイン">
 		</form>

@@ -9,10 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>授業一覧</title>
 <link rel="stylesheet" type="text/css" href="index-ghost.css">
 </head>
 <body>
+
 	<b>授業一覧</b>
 	<form action="Logout" method="get">
 	<input type="submit" value="ログアウト">
@@ -23,6 +24,11 @@
     ServletContext ctx = getServletContext();
 	ArrayList<Lesson> lessonList = (ArrayList<Lesson>) ctx.getAttribute("lessonList");
 
+	boolean loginFailed = (boolean)ctx.getAttribute("loginFailed");
+
+	if(loginFailed){
+		response.sendRedirect("./login.jsp"); // B.jspへリダイレクト
+	}
 	if(lessonList == null){
 		return;
 	}

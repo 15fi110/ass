@@ -12,4 +12,16 @@ public class Teacher extends BaseUser {
 	public void setLessonList(ArrayList<Lesson> lessonList) {
 		this.lessonList = lessonList;
 	}
+
+	public static ArrayList<Teacher> getTeacherList(){
+		UserDAO userDAO = new UserDAO();
+		ArrayList<Teacher> resultList = new ArrayList<Teacher>();
+		try{
+			resultList = userDAO.getTeacherList();
+		}catch(Exception e){
+
+		}
+		return resultList;
+
+	}
 }

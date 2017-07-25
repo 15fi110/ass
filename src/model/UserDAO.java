@@ -3,6 +3,7 @@ package model;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.BaseUser.UserType;
 
@@ -12,6 +13,7 @@ public class UserDAO extends BaseDAO {
     String strPrepSQL_find = "SELECT * FROM assuser WHERE userid = ?";
     String strPrepSQL_login = "SELECT * FROM assuser WHERE userid = ? AND password = ?";
     String strPrepSQL_findId = "SELECT * FROM assuser WHERE id = ?";
+    String strPrepSQL_findTeacher = "SELECT * FROM assuser WHERE userid LIKE '%TE%'";
 
 
 	public BaseUser getUserByUserID(String userID, UserType userType) throws SQLException {
@@ -92,6 +94,8 @@ public class UserDAO extends BaseDAO {
 				resultUser.setMail(resultSet.getString("mail"));
 				resultUser.setType(userType);
 				resultUser.setUserID(userID);
+			}else{
+				resultUser = null;
 			}
 
 			resultSet.close();
@@ -134,7 +138,10 @@ public class UserDAO extends BaseDAO {
 				resultUser.setMail(resultSet.getString("mail"));
 				resultUser.setType(userType);
 				resultUser.setUserID(resultSet.getString("userid"));
+			}else{
+				resultUser = null;
 			}
+
 
 			resultSet.close();
 			prepStmt.close();
@@ -146,5 +153,38 @@ public class UserDAO extends BaseDAO {
 			e.printStackTrace();
 		}
 		return resultUser;
+	}
+
+	public ArrayList<Teacher> getTeacherList() throws SQLException {
+		ArrayList<Teacher> resultList = new ArrayList<Teacher>();
+		try
+		{
+			setup();
+			Class.forName(driverClassName);
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt = connection.prepareStatement(strPrepSQL_findTeacher);
+
+			resultSet = prepStmt.executeQuery();
+
+			while (resultSet.next()) {
+				Teacher resultUser = new Teacher();
+				resultUser.setId(resultSet.getInt("id"));
+				resultUser.setPassword(resultSet.getString("password"));
+				resultUser.setMail(resultSet.getString("mail"));
+				resultUser.setType(UserType.TEACHER);
+				resultUser.setUserID(resultSet.getString("userid"));
+				resultList.add(resultUser);
+			}
+
+
+			resultSet.close();
+			prepStmt.close();
+			connection.close();
+		}catch(
+		Exception e)
+		{
+			e.printStackTrace();
+		}
+		return resultList;
 	}
 }

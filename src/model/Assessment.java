@@ -24,7 +24,8 @@ public class Assessment {
 	private int item13;
 
 	public void register(){
-
+		AssessmentDAO assessmentDAO = new AssessmentDAO();
+		assessmentDAO.create(this);
 	}
 	public AssessmentResult aggregate(ArrayList<Assessment> list){
 		AssessmentResult result = new AssessmentResult();
